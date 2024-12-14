@@ -13,8 +13,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      fontFamily: {
-        editorial: ["PP Editorial New"],
+      fontFamily:{
+        editor:"var(--fonts-editor)",
+        editorial: ["PP Editorial New"]
       },
     },
   },
