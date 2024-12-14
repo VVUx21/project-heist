@@ -15,6 +15,7 @@ const config: Config = {
       },
       fontFamily:{
         editor:"var(--fonts-editor)",
+        editorial: ["PP Editorial New"]
       },
     },
   },

@@ -1,0 +1,177 @@
+"use client"
+import Image from "next/image"
+import "./Hero.css"
+import { useEffect, useState, useRef } from "react"
+import Line from "../assetsHero/line.png"
+import Typo2 from "../assetsHero/typo2.png"
+import Mask from "../assetsHero/mask.png"
+import Mask2 from "../assetsHero/masksm.png"
+import Wave from "../assetsHero/wave.png"
+import Typo from "../assetsHero/typo.png"
+import { ChevronRight } from 'lucide-react'
+
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    setMatches(mediaQuery.matches);
+
+    const handler = () => setMatches(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handler);
+
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, [query]);
+
+  return matches;
+}
+
+export default function Home() {
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const isLargeScreen = useMediaQuery("(min-width: 768px)");
+  const [maskScrollPosition, setMaskScrollPosition] = useState(0)
+  const maskRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScrollPosition((prev) => (prev + 1) % 200)
+    }, 50)
+
+    const handleScroll = () => {
+      if (maskRef.current) {
+        const scrollY = window.scrollY;
+        const maskTop = maskRef.current.offsetTop;
+        if (scrollY > maskTop - window.innerHeight) {
+          setMaskScrollPosition((scrollY - (maskTop - window.innerHeight)) * 0.5);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [])
+
+  return (
+    <main className="relative overflow-hidden flex flex-col">
+      <div className="h-[95vh] sm:h-[100vh] md:h-[82vh] lg:h-[85vh]  bg-[#F40C3F] relative overflow-hidden flex flex-col">
+        {/* Wavy Background*/}
+        <div className="max-w-[1920px]">
+          <Image
+            src={Wave}
+            alt="Background pattern"
+            width={1000}
+            height={150}
+            className="w-full h-40 z-20"
+            priority
+          />
+        </div>
+        {/*scroll karti hui lakir*/}
+        <div className="relative overflow-hidden pb-1 sm:pb-8 md:pb-0 lg:pb-8 bg-[#F40C3F]">
+          <div 
+            className="whitespace-nowrap animate-scroll"
+            style={{
+              transform: `translateX(-${scrollPosition}px)`,
+            }}
+          >
+            {[...Array(10)].map((_, i) => (
+              <Image
+                key={i}
+                src={Line}
+                alt="line"
+                width={300}
+                height={17}
+                className="inline-block"
+              />
+            ))}
+          </div>
+        </div>
+        {/* Nes likha hua */}
+        <div className=" -z-3 w-full max-w-[500px] md:max-w-[800px] mx-auto py-3 sm:py-3 md:py-3 lg:py-7 px-10">
+          <Image
+            src={isLargeScreen ? Typo : Typo2}
+            alt="NES 2025"
+            width={isLargeScreen ? 1800 : 800}
+            height={isLargeScreen ? 500 : 150}
+            className={`${
+              isLargeScreen
+                ? "w-[1800px] h-[500px] sm:w-[800px] sm:h-[150px]"
+                : "w-[290px] h-[190px] sm:w-[350px] sm:h-[250px] md:w-[600px] md:h-[200px] lg:w-[700px] lg:h-[250px] xl:w-[900px] xl:h-[300px]"
+            }`}          
+            priority
+          />
+        </div> 
+
+        {/*scroll karta hui lakir2*/}
+        <div className="relative overflow-hidden pb-0 sm:pb-8 bg-[#F40C3F]">
+          <div 
+            className="whitespace-nowrap animate-scroll"
+            style={{
+              transform: `translateX(-${scrollPosition}px)`,
+            }}
+          >
+            {[...Array(10)].map((_, i) => (
+              <Image
+                key={i}
+                src={Line}
+                alt="line"
+                width={300}
+                height={17}
+                className="inline-block"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* buttons */}
+        <div className="relative flex-grow flex flex-col items-start sm:items-center justify-center px-10 sm:px-10 md:px-20 lg:px-20 pb-2 sm:pb-8 md:pb-8 lb:pb-6 pt-10 sm:pt-10 md:pt-2 lg:pt-12">
+          <div className="flex flex-col sm:flex-row gap-3 z-10">
+            <button 
+              className="group bg-black duration-300 text-white px-6 py-2 text-base font-bold w-[230px] sm:w-[160px] h-[40px] sm:h-auto border-2 border-black relative flex items-center justify-center"
+            >
+              <span>REGISTER</span>
+              <ChevronRight className="w-4 h-4 text-white ml-1 transition-transform duration-300 group-hover:translate-x-3" />
+            </button>
+            <button 
+              className="group bg-transparent duration-300 text-white px-6 py-2 text-base font-bold w-[230px] sm:w-[160px] h-[40px] sm:h-auto border-2 border-black relative flex items-center justify-center"
+            >
+              <span>LOGIN</span>
+              <ChevronRight className="w-4 h-4 text-white ml-1 transition-transform duration-300 group-hover:translate-x-3" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* money heist santa claus  */}
+      <div className="bg-[#F40C3F] mt-auto overflow-hidden" ref={maskRef}>
+        <div 
+          className="whitespace-nowrap"
+          style={{
+            transform: `translateX(-${maskScrollPosition % 100}%)`,
+            transition: 'transform 0.1s linear',
+          }}
+        >
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="inline-block w-full">
+              <Image
+                src={isLargeScreen ? Mask : Mask2}
+                alt="NES 2025"
+                width={isLargeScreen ? 1800 : 800}
+                height={isLargeScreen ? 500 : 150}
+                className={`${
+                  isLargeScreen
+                    ? "w-full h-[500px] sm:h-[450px] md:h-[275px] lg:h-[275px] xl:h-[250px]"
+                    : "w-full h-[275px] sm:w-[800px] sm:h-[330px] md:h-[300px] lg:h-[350px] xl:h-[400px]"
+                }`}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+  )
+}
+

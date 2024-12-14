@@ -31,3 +31,11 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("/fonts/PP-Editorial-New-Regular.woff2") format("woff2"),
+    url("/fonts/PP-Editorial-New-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
