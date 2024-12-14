@@ -16,6 +16,8 @@ const config: Config = {
       fontFamily: {
         bigger: ["var(--font-bigger)"],
         poppins: ["Poppins"],
+        editor:"var(--fonts-editor)",
+        editorial: ["PP Editorial New"]
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 35s linear infinite',
