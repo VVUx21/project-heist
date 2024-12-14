@@ -9,18 +9,37 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@react-email/components": "^0.0.31",
+    "add": "^2.0.6",
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "form": "^0.2.5",
+    "mongoose": "^8.9.0",
+    "next": "14.2.3",
+    "next-auth": "^4.24.11",
+    "nodemailer": "^6.9.16",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "react-email": "^3.0.4",
+    "react-hook-form": "^7.54.1",
+    "shadcn": "^2.1.7",
+    "tailwind-merge": "^2.5.5",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "typescript": "^5"
   }
 }
