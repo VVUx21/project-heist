@@ -4,87 +4,74 @@ import UserModel from '@/model/User';
 import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
-await dbConnect();
+  // Step 1: Connect to Database
+  try {
+    await dbConnect();
+  } catch (err) {
+    console.error('Database connection error:', err);
+    return Response.json(
+      { success: false, message: 'Database connection failed' },
+      { status: 500 }
+    );
+  }
 
-try {
+  try {
+    // Step 2: Parse and Destructure Request Body
     const { uniquecode, firstname, lastname, email, password } = await request.json();
 
-    console.log(uniquecode)
-    const existingVerifiedUserByUsername = await UserModel.findOne({
-    email,
-    isVerified: true,
-    });
-
-    if (existingVerifiedUserByUsername) {
-    return Response.json(
-        {
-        success: false,
-        message: 'Email already exists',
-        },
+    if (!email || !password || !firstname || !lastname || !uniquecode) {
+      return Response.json(
+        { success: false, message: 'All fields are required.' },
         { status: 400 }
-    );
+      );
     }
 
-    const existingUserByEmail = await UserModel.findOne({ email });
+    console.log('Unique Code:', uniquecode);
+
+    // Step 3: Check for Existing Verified User
+    const existingVerifiedUser = await UserModel.findOne({ email, isVerified: true });
+    if (existingVerifiedUser) {
+      return Response.json(
+        { success: false, message: 'Email already exists.' },
+        { status: 400 }
+      );
+    }
+
+    // Step 4: Generate Verify Code and Hash Password
     let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
-    if (existingUserByEmail) {
-      if (existingUserByEmail.isVerified) {
-        return Response.json(
-          {
-            success: false,
-            message: 'User already exists with this email',
-          },
-          { status: 400 }
-        );
-      } else {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        existingUserByEmail.password = hashedPassword;
-        existingUserByEmail.verifyCode = verifyCode;
-        existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
-        await existingUserByEmail.save();
-      }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const verifyCodeExpiry = new Date(Date.now() + 3600000); // 1-hour expiry
+
+    // Step 5: Handle Unverified Existing User
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser && !existingUser.isVerified) {
+      existingUser.password = hashedPassword;
+      existingUser.verifyCode = verifyCode;
+      existingUser.verifyCodeExpiry = verifyCodeExpiry;
+      await existingUser.save();
     } else {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const expiryDate = new Date();
-      expiryDate.setHours(expiryDate.getHours() + 1);
-      console.log(uniquecode)
-      const result=await UserModel.create({
+      // Step 6: Create New User
+      const newUser = new UserModel({
         firstname,
         lastname,
         email,
         password: hashedPassword,
         verifyCode,
-        verifyCodeExpiry: expiryDate,
+        verifyCodeExpiry,
         isVerified: false,
-        uniquecode:uniquecode,
+        uniquecode,
         event: [],
       });
-      
-      //console.log(result);
-      // const newUser = new UserModel({
-      //   firstname,
-      //   lastname,
-      //   email,
-      //   password: hashedPassword,
-      //   verifyCode,
-      //   verifyCodeExpiry: expiryDate,
-      //   isVerified: false,
-      //   uniquecode: uniquecode,
-      //   event: [],
-      // });
 
-      // await newUser.save();
+      await newUser.save();
     }
 
-    //Send verification email
-    const responseemail = await sendEmail({
-      email,
-      firstname,
-      lastname,
-      verifyCode,
-    })
-    console.log('Email sent', responseemail);
+    // Step 7: Send Email (asynchronously, no blocking)
+    sendEmail({ email, firstname, lastname, verifyCode })
+      .then(() => console.log('Verification email sent successfully.'))
+      .catch((err) => console.error('Failed to send verification email:', err));
 
+    // Step 8: Send Response to Client
     return Response.json(
       {
         success: true,
@@ -95,10 +82,7 @@ try {
   } catch (error) {
     console.error('Error registering user:', error);
     return Response.json(
-      {
-        success: false,
-        message: 'Error registering user',
-      },
+      { success: false, message: 'Error registering user.' },
       { status: 500 }
     );
   }
