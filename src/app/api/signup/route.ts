@@ -60,7 +60,7 @@ try {
         event: [],
       });
       
-      console.log(result);
+      //console.log(result);
       // const newUser = new UserModel({
       //   firstname,
       //   lastname,
@@ -76,14 +76,14 @@ try {
       // await newUser.save();
     }
 
-    // Send verification email
-    // const responseemail = await sendEmail({
-    //   email,
-    //   firstname,
-    //   lastname,
-    //   verifyCode,
-    // })
-    // console.log('Email sent', responseemail);
+    //Send verification email
+    const responseemail = await sendEmail({
+      email,
+      firstname,
+      lastname,
+      verifyCode,
+    })
+    console.log('Email sent', responseemail);
 
     return Response.json(
       {

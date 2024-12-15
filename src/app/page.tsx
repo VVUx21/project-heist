@@ -1,11 +1,11 @@
-import Events from "@/components/Events";
+import Events from "../components/Events";
 import Navbar from "../components/Navbar"
-import AboutUs from"@/components/AboutUs";
+import AboutUs from"../components/AboutUs";
 import Hero from "../components/Hero"
-import Footer from "@/components/footer";
-import Sponsors from "@/components/Sponsors/Sponsors";
-import Speakers from "@/components/Speakers/Speakers";
-import Investors from "@/components/Investors/Investors";
+import Footer from "../components/footer";
+import Sponsors from "../components/Sponsors/Sponsors";
+import Speakers from "../components/Speakers/Speakers";
+import Investors from "../components/Investors/Investors";
 export default function Home() {
   return (
    <>
