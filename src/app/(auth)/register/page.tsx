@@ -1,7 +1,7 @@
 // import RegisterForm from "../../../components/Authform";
 
 // function App() {
-//   return <RegisterForm />;
+//   return <RegisterForm type="verify" />;
 // }
 
 // export default App;

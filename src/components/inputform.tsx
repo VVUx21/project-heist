@@ -10,10 +10,10 @@ const Inputform = ({form,name,label,placeholder}:any) => {
             name={name}
             render={({ field }) => (
                 <div>
-                   <FormLabel className='block text-sm font-medium text-white mb-2'>{label}</FormLabel>
+                   <FormLabel className='block text-sm font-poppins text-white mb-2'>{label}</FormLabel>
                    <div className='flex space-x-4'>
                    <FormControl>
-                        <Input {...field} className='flex-1 px-3 py-2 bg-transparent border border-gray-300 
+                        <Input {...field} className='flex-1 px-3 py-2 bg-white/20 border border-gray-300 
                         rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500' 
                         type={name === 'password' ? 'password' : 'text'} placeholder={placeholder} />
                    </FormControl>

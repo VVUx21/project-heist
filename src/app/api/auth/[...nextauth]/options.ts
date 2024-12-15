@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = await UserModel.findOne({
             $or: [
-              { email: credentials.identifier },
+              { email: credentials.email },
             ],
           });
           if (!user) {
@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
-  secret: process.env.NEXT_PUBLIC_AUTHSECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/sign-in',
   },

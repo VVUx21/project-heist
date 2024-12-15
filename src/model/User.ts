@@ -19,6 +19,7 @@ export interface User extends Document {
   verifyCode: string;
   verifyCodeExpiry: Date; 
   isVerified: boolean;
+  uniquecode:string;
   event: Event[];
 }
 
@@ -52,6 +53,10 @@ const UserSchema: Schema<User> = new mongoose.Schema({
   isVerified: {
     type: Boolean,
     default: false,
+  },
+  uniquecode: {
+    type: String,
+    required: [true, 'Unique Code is required',],
   },
   event:[EventSchema]
 });

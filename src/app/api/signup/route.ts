@@ -7,8 +7,9 @@ export async function POST(request: Request) {
 await dbConnect();
 
 try {
-    const { firstname, lastname, email, password } = await request.json();
+    const { uniquecode, firstname, lastname, email, password } = await request.json();
 
+    console.log(uniquecode)
     const existingVerifiedUserByUsername = await UserModel.findOne({
     email,
     isVerified: true,
@@ -26,7 +27,6 @@ try {
 
     const existingUserByEmail = await UserModel.findOne({ email });
     let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
-
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
         return Response.json(
@@ -47,8 +47,8 @@ try {
       const hashedPassword = await bcrypt.hash(password, 10);
       const expiryDate = new Date();
       expiryDate.setHours(expiryDate.getHours() + 1);
-
-      const newUser = new UserModel({
+      console.log(uniquecode)
+      const result=await UserModel.create({
         firstname,
         lastname,
         email,
@@ -56,20 +56,34 @@ try {
         verifyCode,
         verifyCodeExpiry: expiryDate,
         isVerified: false,
+        uniquecode:uniquecode,
         event: [],
       });
+      
+      console.log(result);
+      // const newUser = new UserModel({
+      //   firstname,
+      //   lastname,
+      //   email,
+      //   password: hashedPassword,
+      //   verifyCode,
+      //   verifyCodeExpiry: expiryDate,
+      //   isVerified: false,
+      //   uniquecode: uniquecode,
+      //   event: [],
+      // });
 
-      await newUser.save();
+      // await newUser.save();
     }
 
     // Send verification email
-    const responseemail = await sendEmail({
-      email,
-      firstname,
-      lastname,
-      verifyCode,
-    })
-    console.log('Email sent', responseemail);
+    // const responseemail = await sendEmail({
+    //   email,
+    //   firstname,
+    //   lastname,
+    //   verifyCode,
+    // })
+    // console.log('Email sent', responseemail);
 
     return Response.json(
       {
