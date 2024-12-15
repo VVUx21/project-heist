@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
 
-    <main className="relative overflow-hidden flex flex-col">
+    <main className="relative overflow-hidden flex flex-col" id="Hero">
       <div className="h-[90vh] sm:h-[90vh] md:h-[70vh] lg:h-[72.75vh]  bg-[#F40C3F] relative overflow-hidden flex flex-col">
         {/* Wavy Background*/}
         <div className="max-w-[1920px]">

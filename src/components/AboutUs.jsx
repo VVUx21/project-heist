@@ -4,7 +4,7 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className=" flex flex-col items-center pt-10 md:pb-20 pb-14 h-full bg-black text-white p-4 text-center">
+    <div className=" flex flex-col items-center pt-10 md:pb-20 pb-14 h-full bg-black text-white p-4 text-center" id="About Us">
       <Image
       src='/Group 3.png'
       alt='Group 3'

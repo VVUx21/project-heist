@@ -36,24 +36,15 @@ function Navbar() {
             />
           </div>
           <div className="md:flex flex-row h-max lg:w-[85%] md:w-[90%] gap-6 items-center justify-end hidden font-poppins">
-            <div className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
-              Home
-            </div>
-            <div className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
-              Events
-            </div>
-            <div className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
-              About Us
-            </div>
-            <div className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
-              Past speakers
-            </div>
-            <div className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
-              Past sponsors
-            </div>
-            <div className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
-              Past Investors
-            </div>
+            {
+              ['Events','About Us','Speakers', 'Sponsors','Investors'].map(
+                (item, index) => (
+                  <Link key={index} href={`#${item}`} className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
+                    {item}
+                  </Link>
+                )
+              )
+            }
             <div>
               <div className="flex-row w-fit xl:gap-4 gap-3 hidden lg:flex">
                 <div className="flex flex-row justify-center items-center border-2 border-[#F40C3F] rounded-lg xl:p-2 group hover:cursor-pointer p-1">
