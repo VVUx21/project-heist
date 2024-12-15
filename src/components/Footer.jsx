@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#212121] text-gray-300 rounded-t-3xl overflow-hidden">
       <div
-        className="relative bg-[#212121] text-white pt-16 pb-8 px-2 md:px-16 lg:px-32"
+        className="relative bg-[#212121] text-white pt-16 pb-8 px-5 md:px-16 lg:px-32"
         style={{
           clipPath: "ellipse(150% 100% at 50% 0%)",
         }}
@@ -14,7 +14,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <img src="/ecell logo.svg" alt="E-Cell Logo" className="h-5" />
-              <span className="font-semibold font-editorial text-[25px]">
+              <span className="font-semibold font-editorial text-[25px] whitespace-nowrap">
                 | Entrepreneurship Cell
               </span>
             </div>
@@ -51,9 +51,9 @@ const Footer = () => {
             <hr className="border-t border-[#D9D9D9]" />
             <p className="text-sm mb-4 mt-4">
               Founded in 2007, Entrepreneurship Cell NIT Rourkela fosters
-              "Innovation, Incubation, and Entrepreneurship." It empowers
-              students with entrepreneurial traits and supports them in turning
-              ideas into ventures.
+              &quot;Innovation, Incubation, and Entrepreneurship&quot;. It
+              empowers students with entrepreneurial traits and supports them in
+              turning ideas into ventures.
             </p>
           </div>
 
@@ -161,6 +161,20 @@ const Footer = () => {
             />
           </div>
         </div>
+      </div>
+      {/* Small Strip Below Footer */}
+      <div className="bg-black text-white flex justify-center items-center">
+        <p className="text-sm sm:text-base whitespace-nowrap">
+          Made with <span className="text-blue-400">❤️</span> by
+          <a
+            href="https://www.instagram.com/webwiz.nitr/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-1 text-white hover:text-red-300 transition-colors duration-200"
+          >
+            WEBWIZ
+          </a>
+        </p>
       </div>
     </footer>
   );
