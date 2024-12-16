@@ -12,15 +12,36 @@ async function dbConnect(): Promise<void> {
     return;
   }
 
+  if (mongoose.connections.length > 0) {
+    const existingConnection = mongoose.connections[0].readyState;
+    if (existingConnection === 1) {
+      console.log('Using existing database connection');
+      connection.isConnected = 1;
+      return;
+    }
+
+    // Close previous connections if not in ready state
+    await mongoose.disconnect();
+  }
+
+  if (!process.env.MONGO_URI) {
+    console.error('Missing MONGO_URI in environment variables');
+    throw new Error('Database connection failed due to missing URI');
+  }
+
   try {
-    const db = await mongoose.connect(process.env.MONGO_URI || '', {});
+    const db = await mongoose.connect(process.env.MONGO_URI);
 
     connection.isConnected = db.connections[0].readyState;
 
-    console.log('Database connected successfully');
-  } catch (error) {
-    console.error('Database connection failed:', error);
-    process.exit(1);
+    if (connection.isConnected === 1) {
+      console.log('Database connected successfully');
+    } else {
+      console.error('Database connection failed: Invalid connection state');
+    }
+  } catch (error:any) {
+    console.error('Error connecting to the database:', error.message);
+    throw new Error('Database connection failed');
   }
 }
 

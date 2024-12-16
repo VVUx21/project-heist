@@ -66,7 +66,6 @@ export async function POST(request: Request) {
       await newUser.save();
     }
 
-    // Step 7: Send Email (asynchronously, no blocking)
     sendEmail({ email, firstname, lastname, verifyCode })
       .then(() => console.log('Verification email sent successfully.'))
       .catch((err) => console.error('Failed to send verification email:', err));
