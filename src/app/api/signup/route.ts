@@ -5,6 +5,16 @@ import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
   try {
+    await dbConnect();
+  } catch (err) {
+    console.error('Database connection error:', err);
+    return Response.json(
+      { success: false, message: 'Database connection failed' },
+      { status: 500 }
+    );
+  }
+
+  try {
     // Step 2: Parse and Destructure Request Body
     const { uniquecode, firstname, lastname, email, password } = await request.json();
 

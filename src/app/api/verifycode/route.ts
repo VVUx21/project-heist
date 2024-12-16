@@ -2,8 +2,8 @@ import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/model/User';
 
 export async function POST(request: Request) {
-  
   try {
+    await dbConnect();
     const { uniquecode, code } = await request.json();
     const user = await UserModel.findOne({
         uniquecode: uniquecode
