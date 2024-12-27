@@ -2,14 +2,13 @@
 import Image from "next/image"
 import "./Hero.css"
 import { useEffect, useState, useRef } from "react"
-import Line from "../assetsHero/line.png"
 import Typo2 from "../assetsHero/typo2.png"
 import Mask from "../assetsHero/mask.png"
 import Mask2 from "../assetsHero/masksm.png"
 import Wave from "../assetsHero/wave.png"
 import Typo from "../assetsHero/typo.png"
 import { ChevronRight } from 'lucide-react'
-import { useSession, getSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
 
@@ -38,7 +37,7 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setScrollPosition((prev) => (prev + 1) % 200)
+      setScrollPosition((prev) => (prev + 5) % 200)
     }, 50)
 
     const handleScroll = () => {
@@ -63,7 +62,8 @@ export default function Home() {
 
     <main className="relative overflow-hidden flex flex-col" id="Hero">
       <div className="h-[90vh] sm:h-[90vh] md:h-[70vh] lg:h-[72.75vh]  bg-[#F40C3F] relative overflow-hidden flex flex-col">
-        {/* Wavy Background*/}
+
+        
         <div className="max-w-[1920px]">
           <Image
             src={Wave}
@@ -74,27 +74,32 @@ export default function Home() {
             priority
           />
         </div>
-        {/*scroll karti hui lakir*/}
-        <div className="relative overflow-hidden pb-2 bg-[#F40C3F]">
-          <div 
-            className="whitespace-nowrap animate-scroll"
-            style={{
-              transform: `translateX(-${scrollPosition}px)`,
-            }}
-          >
-            {[...Array(10)].map((_, i) => (
-              <Image
-                key={i}
-                src={Line}
-                alt="line"
-                width={300}
-                height={17}
-                className="inline-block"
-              />
-            ))}
-          </div>
+
+
+
+
+        <div className="pb-2">
+        <div className="relative overflow-hidden border-y-[1px] border-black">
+        <div 
+          className="whitespace-nowrap py-[4px] text-black/80 font-mono text-[12px] animate-scroll"
+          style={{
+            transform: `translateX(-${scrollPosition}px)`,
+          }}
+        >
+          {[...Array(20)].map((_, i) => (
+            <span key={i} className="inline-block px-2">
+              <span className="opacity-60">////////////////////</span>
+              31 JAN - 2 FEB, 2025
+              <span className="opacity-60">////////////////////</span>
+            </span>
+          ))}
         </div>
-        {/* Nes likha hua */}
+      </div>
+      </div>
+
+
+
+
         <div className=" -z-3 w-full max-w-[500px] md:max-w-[800px] mx-auto py-2 px-10">
           <Image
             src={isLargeScreen ? Typo : Typo2}
@@ -110,28 +115,30 @@ export default function Home() {
           />
         </div> 
 
-        {/*scroll karta hui lakir2*/}
-        <div className="relative overflow-hidden pb-2 pt-2 bg-[#F40C3F]">
-          <div 
-            className="whitespace-nowrap animate-scroll"
-            style={{
-              transform: `translateX(-${scrollPosition}px)`,
-            }}
-          >
-            {[...Array(10)].map((_, i) => (
-              <Image
-                key={i}
-                src={Line}
-                alt="line"
-                width={300}
-                height={17}
-                className="inline-block"
-              />
-            ))}
-          </div>
-        </div>
 
-        {/* buttons */}
+
+
+        <div className="pt-2">
+        <div className="relative overflow-hidden border-y-[1px] border-black">
+        <div 
+          className="whitespace-nowrap py-[4px] text-black/80 font-mono text-[12px] animate-scroll"
+          style={{
+            transform: `translateX(-${scrollPosition}px)`,
+          }}
+        >
+          {[...Array(20)].map((_, i) => (
+            <span key={i} className="inline-block px-2">
+              <span className="opacity-60">////////////////////</span>
+              31 JAN - 2 FEB, 2025
+              <span className="opacity-60">////////////////////</span>
+            </span>
+          ))}
+        </div>
+      </div>
+      </div>
+
+
+
         <div className="relative flex-grow flex flex-col items-start sm:items-center justify-center px-10 sm:px-10 md:px-20 lg:px-20 py-2">
           <div className="flex flex-col sm:flex-row gap-3 z-2">
             {
@@ -179,7 +186,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* money heist santa claus  */}
+
+
       <div className="bg-[#F40C3F] mt-auto overflow-hidden" ref={maskRef}>
         <div 
           className="whitespace-nowrap"
