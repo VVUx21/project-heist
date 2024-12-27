@@ -9,8 +9,8 @@ import Investors from "../components/Investors/Investors";
 export default function Home() {
   return (
    <>
-   {/* <Navbar />
-   <Hero /> */}
+   <Navbar />
+   <Hero />
    <Events/>
    <AboutUs/>
    <Speakers/>
