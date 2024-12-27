@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#212121] text-gray-300 rounded-t-3xl overflow-hidden">
       <div
-        className="relative bg-[#212121] text-white pt-16 pb-8 px-5 md:px-16 lg:px-32 border-blue-500"
+        className="relative bg-[#212121] text-white pt-16 pb-8 px-5 md:px-16 lg:px-32"
         style={{
           clipPath: "ellipse(150% 100% at 50% 0%)",
         }}
@@ -12,13 +12,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left Section */}
           <div>
-            <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4">
+            <div className="flex flex-col items-center space-x-2 mb-4">
               <img src="/ecell logo.svg" alt="E-Cell Logo" className="h-5" />
               <span className="font-semibold font-editorial text-[25px] whitespace-nowrap">
-                | Entrepreneurship Cell
+                 Entrepreneurship Cell
               </span>
             </div>
-            <div className="flex space-x-4 mb-4 mt-4 justify-center sm:justify-start">
+            <div className="flex space-x-4 mb-4 mt-4 justify-center">
               <a
                 href="https://x.com/ecellnitr"
                 aria-label="Twitter"
@@ -62,7 +62,7 @@ const Footer = () => {
           </div>
 
           {/* Middle Section */}
-          <div className="sm:block hidden">
+          <div className="sm:block hidden ml-4">
             <div className="grid grid-cols-2 gap-x-20">
               <div>
                 <h2 className="text-lg font-semibold mb-4">MENU</h2>
