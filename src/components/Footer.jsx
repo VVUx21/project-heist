@@ -12,38 +12,42 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left Section */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex flex-col items-center space-x-2 mb-4">
               <img src="/ecell logo.svg" alt="E-Cell Logo" className="h-5" />
               <span className="font-semibold font-editorial text-[25px] whitespace-nowrap">
-                | Entrepreneurship Cell
+                 Entrepreneurship Cell
               </span>
             </div>
-            <div className="flex space-x-4 mb-4 mt-4">
+            <div className="flex space-x-4 mb-4 mt-4 justify-center">
               <a
-                href="#"
+                href="https://x.com/ecellnitr"
                 aria-label="Twitter"
                 className="hover:text-blue-500 text-2xl"
+                target="blank"
               >
                 <FaTwitter />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ecell_nitrourkela?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 aria-label="Instagram"
                 className="hover:text-pink-500 text-2xl"
+                target="blank"
               >
                 <FaInstagram />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/ECellNITR/?fref=ts"
                 aria-label="Facebook"
                 className="hover:text-blue-700 text-2xl"
+                target="blank"
               >
                 <FaFacebook />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/entrepreneurship-cell-nit-rourkela"
                 aria-label="LinkedIn"
                 className="hover:text-blue-300 text-2xl"
+                target="blank"
               >
                 <FaLinkedin />
               </a>
@@ -58,52 +62,54 @@ const Footer = () => {
           </div>
 
           {/* Middle Section */}
-          <div className="grid grid-cols-2 gap-x-20">
-            <div>
-              <h2 className="text-lg font-semibold mb-4">MENU</h2>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:underline">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Events
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Past Speakers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Past Sponsors
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Investors
-                  </a>
-                </li>
-              </ul>
-            </div>
+          <div className="sm:block hidden ml-4">
+            <div className="grid grid-cols-2 gap-x-20">
+              <div>
+                <h2 className="text-lg font-semibold mb-4">MENU</h2>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#About Us" className="hover:underline">
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Events" className="hover:underline">
+                      Events
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Speakers" className="hover:underline">
+                      Past Speakers
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Sponsors" className="hover:underline">
+                      Past Sponsors
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#Investors" className="hover:underline">
+                      Investors
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-            <div>
-              <h2 className="text-lg font-semibold mb-4">PAGES</h2>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:underline">
-                    Event
-                  </a>
-                </li>
-              </ul>
+              <div className="sm:block hidden">
+                <h2 className="text-lg font-semibold mb-4">PAGES</h2>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Event
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
