@@ -4,25 +4,25 @@ const Footer = () => {
   return (
     <footer className="bg-[#212121] text-gray-300 rounded-t-3xl overflow-hidden">
       <div
-        className="relative bg-[#212121] text-white pt-16 pb-8 px-5 md:px-16 lg:px-32"
+        className="relative bg-[#212121] text-white pt-16 pb-8 px-5 md:px-16 lg:px-10"
         style={{
           clipPath: "ellipse(150% 100% at 50% 0%)",
         }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-1/3 xl:pl-24">
           {/* Left Section */}
           <div>
-            <div className="flex flex-col items-center space-x-2 mb-4">
+            <div className="flex flex-col xl:flex-row items-center space-x-2 mb-4">
               <img src="/ecell logo.svg" alt="E-Cell Logo" className="h-5" />
               <span className="font-semibold font-editorial text-[25px] whitespace-nowrap">
                  Entrepreneurship Cell
               </span>
             </div>
-            <div className="flex space-x-4 mb-4 mt-4 justify-center">
+            <div className="flex space-x-4 mb-4 mt-4 xl:justify-start justify-center">
               <a
                 href="https://x.com/ecellnitr"
                 aria-label="Twitter"
-                className="hover:text-blue-500 text-2xl"
+                className="hover:text-pink-500 text-2xl"
                 target="blank"
               >
                 <FaTwitter />
@@ -38,7 +38,7 @@ const Footer = () => {
               <a
                 href="https://www.facebook.com/ECellNITR/?fref=ts"
                 aria-label="Facebook"
-                className="hover:text-blue-700 text-2xl"
+                className="hover:text-pink-500 text-2xl"
                 target="blank"
               >
                 <FaFacebook />
@@ -46,7 +46,7 @@ const Footer = () => {
               <a
                 href="https://www.linkedin.com/company/entrepreneurship-cell-nit-rourkela"
                 aria-label="LinkedIn"
-                className="hover:text-blue-300 text-2xl"
+                className="hover:text-pink-500 text-2xl"
                 target="blank"
               >
                 <FaLinkedin />
@@ -63,7 +63,7 @@ const Footer = () => {
 
           {/* Middle Section */}
           <div className="sm:block hidden ml-4">
-            <div className="grid grid-cols-2 gap-x-20">
+            <div className="flex justify-around mb-4">
               <div>
                 <h2 className="text-lg font-semibold mb-4">MENU</h2>
                 <ul className="space-y-2">
@@ -114,7 +114,7 @@ const Footer = () => {
           </div>
 
           {/* Right Section */}
-          <div>
+          <div className="min-w-1/4">
             <h2 className="text-lg font-semibold mb-4">CONTACT US</h2>
             <div className="mb-2 flex items-center space-x-2">
               <img

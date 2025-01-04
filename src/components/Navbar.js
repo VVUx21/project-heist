@@ -56,7 +56,7 @@ function Navbar() {
                           onClick={()=>signOut()}
                         >Log out</button>
                       ) : (
-                        <Link href={`/login`}>Log in</Link>
+                        <Link href={`/`}>Log in</Link>
                       )
                     }
                     <Image src={Right} className="h-[1.05rem] w-5" />
@@ -68,7 +68,7 @@ function Navbar() {
                       session?.user.isVerified? (
                         <button>Register</button>
                       ) : (
-                        <Link href={`/login`}>Register</Link>
+                        <Link href={`/`}>Register</Link>
                       )
                     }
                     <Image src={Right} className="h-[1.05rem] w-5" />
@@ -81,23 +81,21 @@ function Navbar() {
       </div>
       {open && (
   <div
+    onClick={() => setOpen(!open)}
     className={`fixed top-20 z-50 w-full h-[calc(100vh-5rem)] bg-black md:hidden flex flex-col gap-[0.1rem]
     justify-center items-center font-poppins opacity-95`}
   >
     {[
-      "HOME",
-      "EVENTS",
-      "ABOUT US",
-      "PAST SPEAKERS",
-      "PAST SPONSORS",
-      "PAST INVESTORS",
+      'Events','About Us','Speakers', 'Sponsors','Investors'
     ].map((item, index) => (
       <div
-        key={index}
+        key={index} 
         className={`w-[95%] h-16 bg-[#F40C3F] flex justify-center items-center text-xl
         transform transition-transform duration-150 ease-out hover:scale-105`}
       >
+      <Link onClick={() => setOpen(!open)} key={index} href={`#${item}`}>
         {item}
+      </Link>
       </div>
     ))}
   </div>
