@@ -75,9 +75,6 @@ export default function Home() {
           />
         </div>
 
-
-
-
         <div className="pb-2">
         <div className="relative overflow-hidden border-y-[1px] border-black">
         <div 
@@ -88,17 +85,13 @@ export default function Home() {
         >
           {[...Array(20)].map((_, i) => (
             <span key={i} className="inline-block px-2">
-              <span className="opacity-60">////////////////////</span>
               31 JAN - 2 FEB, 2025
-              <span className="opacity-60">////////////////////</span>
+              <span className="opacity-60">{`////////////////////`}</span>
             </span>
           ))}
         </div>
       </div>
       </div>
-
-
-
 
         <div className=" -z-3 w-full max-w-[500px] md:max-w-[800px] mx-auto py-2 px-10">
           <Image
@@ -115,9 +108,6 @@ export default function Home() {
           />
         </div> 
 
-
-
-
         <div className="pt-2">
         <div className="relative overflow-hidden border-y-[1px] border-black">
         <div 
@@ -128,16 +118,13 @@ export default function Home() {
         >
           {[...Array(20)].map((_, i) => (
             <span key={i} className="inline-block px-2">
-              <span className="opacity-60">////////////////////</span>
               31 JAN - 2 FEB, 2025
-              <span className="opacity-60">////////////////////</span>
+              <span className="opacity-60">{`////////////////////`}</span>
             </span>
           ))}
         </div>
       </div>
       </div>
-
-
 
         <div className="relative flex-grow flex flex-col items-start sm:items-center justify-center px-10 sm:px-10 md:px-20 lg:px-20 py-2">
           <div className="flex flex-col sm:flex-row gap-3 z-2">
@@ -185,8 +172,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-
 
       <div className="bg-[#F40C3F] mt-auto overflow-hidden" ref={maskRef}>
         <div 
