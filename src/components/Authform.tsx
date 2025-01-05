@@ -60,77 +60,77 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
   const handleSendOtp = async (
     data: z.infer<typeof VerifyEmail>
   ) => {
-    // try {
-    //   const response = await axios.post<ApiResponse>(`/api/verifycode`, {
-    //     code: data.code,
-    //     uniquecode:email,
-    //   });
+    try {
+      const response = await axios.post<ApiResponse>(`/api/verifycode`, {
+        code: data.code,
+        uniquecode:email,
+      });
 
-    //   toast({
-    //     title: 'Success',
-    //     description: response.data.message,
-    //   });
+      toast({
+        title: 'Success',
+        description: response.data.message,
+      });
 
-    //   router.replace('/sign-in');
-    // } catch (error) {
-    //   const axiosError = error as AxiosError<ApiResponse>;
-    //   toast({
-    //     title: 'Verification Failed',
-    //     description:
-    //       axiosError.response?.data.message ??
-    //       'An error occurred. Please try again.',
-    //     variant: 'destructive',
-    //   });
-    // }
+      router.replace('/sign-in');
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponse>;
+      toast({
+        title: 'Verification Failed',
+        description:
+          axiosError.response?.data.message ??
+          'An error occurred. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const handleverification = async (
     data: z.infer<typeof SignupSchema>
   ) => {
-  //   setIsSubmitting(true);
-  //   try {
-  //     if(data.password != data.confirmPassword){
-  //       toast({
-  //         title: 'Password Mismatch',
-  //         description: 'Passwords do not match',
-  //       });
-  //       setIsSubmitting(false);
-  //       return;
-  //     }
-  //     let uniquecode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
-  //     const userdata={
-  //       firstname: data.firstname,
-  //       lastname: data.lastname,
-  //       email: data.email,
-  //       password: data.password,
-  //       uniquecode:uniquecode,
-  //     }
-  //     const response = await axios.post<ApiResponse>('/api/signup',userdata);
+    setIsSubmitting(true);
+    try {
+      if(data.password != data.confirmPassword){
+        toast({
+          title: 'Password Mismatch',
+          description: 'Passwords do not match',
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      let uniquecode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+      const userdata={
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        password: data.password,
+        uniquecode:uniquecode,
+      }
+      const response = await axios.post<ApiResponse>('/api/signup',userdata);
 
-  //     toast({
-  //       title: 'Success',
-  //       description: response.data.message,
-  //     });
+      toast({
+        title: 'Success',
+        description: response.data.message,
+      });
 
-  //     router.replace(`/verify/${uniquecode}`);
+      router.replace(`/verify/${uniquecode}`);
 
-  //     setIsSubmitting(false);
-  //   } catch (error) {
-  //     console.error('Error during sign-up:', error);
+      setIsSubmitting(false);
+    } catch (error) {
+      console.error('Error during sign-up:', error);
 
-  //     const axiosError = error as AxiosError<ApiResponse>;
+      const axiosError = error as AxiosError<ApiResponse>;
 
-  //     let errorMessage = axiosError.response?.data.message;
-  //     ('There was a problem with your sign-up. Please try again.');
+      let errorMessage = axiosError.response?.data.message;
+      ('There was a problem with your sign-up. Please try again.');
 
-  //     toast({
-  //       title: 'Sign Up Failed',
-  //       description: errorMessage,
-  //       variant: 'destructive',
-  //     });
+      toast({
+        title: 'Sign Up Failed',
+        description: errorMessage,
+        variant: 'destructive',
+      });
 
-  //     setIsSubmitting(false);
-  // };
+      setIsSubmitting(false);
+  };
   }
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">

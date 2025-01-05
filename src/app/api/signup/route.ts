@@ -15,7 +15,6 @@ export async function POST(request: Request) {
   }
 
   try {
-    // Step 2: Parse and Destructure Request Body
     const { uniquecode, firstname, lastname, email, password } = await request.json();
 
     if (!email || !password || !firstname || !lastname || !uniquecode) {
@@ -27,7 +26,6 @@ export async function POST(request: Request) {
 
     console.log('Unique Code:', uniquecode);
 
-    // Step 3: Check for Existing Verified User
     const existingVerifiedUser = await UserModel.findOne({ email, isVerified: true });
     if (existingVerifiedUser) {
       return Response.json(
@@ -36,12 +34,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Step 4: Generate Verify Code and Hash Password
     let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
     const hashedPassword = await bcrypt.hash(password, 10);
     const verifyCodeExpiry = new Date(Date.now() + 3600000); // 1-hour expiry
 
-    // Step 5: Handle Unverified Existing User
     const existingUser = await UserModel.findOne({ email });
     if (existingUser && !existingUser.isVerified) {
       existingUser.password = hashedPassword;
@@ -49,7 +45,6 @@ export async function POST(request: Request) {
       existingUser.verifyCodeExpiry = verifyCodeExpiry;
       await existingUser.save();
     } else {
-      // Step 6: Create New User
       const newUser = new UserModel({
         firstname,
         lastname,
@@ -68,8 +63,6 @@ export async function POST(request: Request) {
     sendEmail({ email, firstname, lastname, verifyCode })
       .then(() => console.log('Verification email sent successfully.'))
       .catch((err) => console.error('Failed to send verification email:', err));
-
-    // Step 8: Send Response to Client
     return Response.json(
       {
         success: true,

@@ -5,7 +5,7 @@ import { speakersData } from "../../Data/SpeakersData"
 const Speakers = () => {
   return (
     <div className='bg-black' id='Speakers'>
-        <div className='text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-bigger mt-8 mb-4'>
+        <div className='text-center text-3xl sm:text-4xl text-white md:text-5xl lg:text-6xl font-extrabold font-bigger mt-8 mb-4'>
             <p>PAST <span className='text-black gradient pt-[7.5px] pl-2 pr-2 '>SPEAKERS</span></p>
         </div>
         <div className="w-full">

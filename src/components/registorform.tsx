@@ -29,31 +29,31 @@ const RegistorForm = () => {
     const handleRegister = async (
         data: z.infer<typeof Registor>
     ) => {
-        // const result = await signIn('credentials', {
-        //     redirect: false,
-        //     email: data.email,
-        //     password: data.password,
-        // });
+        const result = await signIn('credentials', {
+            redirect: false,
+            email: data.email,
+            password: data.password,
+        });
       
-        // if (result?.error) {
-        //     if (result.error === 'CredentialsSignin') {
-        //     toast({
-        //         title: 'Login Failed',
-        //         description: 'Incorrect username or password',
-        //         variant: 'destructive',
-        //     });
-        //     } else {
-        //     toast({
-        //         title: 'Error',
-        //         description: result.error,
-        //         variant: 'destructive',
-        //     });
-        //     }
-        // }
+        if (result?.error) {
+            if (result.error === 'CredentialsSignin') {
+            toast({
+                title: 'Login Failed',
+                description: 'Incorrect username or password',
+                variant: 'destructive',
+            });
+            } else {
+            toast({
+                title: 'Error',
+                description: result.error,
+                variant: 'destructive',
+            });
+            }
+        }
       
-        // if (result?.url) {
-        //     router.replace('/');
-        // }
+        if (result?.url) {
+            router.replace('/');
+        }
     };
     
 

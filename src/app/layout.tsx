@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" >
       <AuthProvider>
-        <body className={` ${bigger.variable} ${editor.variable}`}>
+        <body className={` ${bigger.variable} ${editor.variable} bg-black`}>
           {children}
           {/* <Toaster /> */}
         </body>

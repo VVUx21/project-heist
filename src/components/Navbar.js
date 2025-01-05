@@ -39,7 +39,7 @@ function Navbar() {
             {
               ['Events','About Us','Speakers', 'Sponsors','Investors'].map(
                 (item, index) => (
-                  <Link key={index} href={`#${item}`} className="hover:text-[#F40C3F] cursor-pointer xl:text-xl">
+                  <Link key={index} href={`#${item}`} className="hover:text-[#F40C3F] text-white cursor-pointer xl:text-xl">
                     {item}
                   </Link>
                 )
@@ -48,7 +48,7 @@ function Navbar() {
             <div>
               <div className="flex-row w-fit xl:gap-4 gap-3 hidden lg:flex">
                 <div className="flex flex-row justify-center items-center border-2 border-[#F40C3F] rounded-lg xl:p-2 group hover:cursor-pointer p-1">
-                  <div className="flex items-center justify-between transform transition-transform duration-300 group-hover:translate-x-1">
+                  <div className="flex items-center text-white justify-between transform transition-transform duration-300 group-hover:translate-x-1">
                     {
                       session?.user.isVerified ? (
                         <button
@@ -56,7 +56,7 @@ function Navbar() {
                           onClick={()=>signOut()}
                         >Log out</button>
                       ) : (
-                        <Link href={`/`}>Log in</Link>
+                        <Link href={`/login`}>Log in</Link>
                       )
                     }
                     <Image src={Right} className="h-[1.05rem] w-5" />
@@ -68,7 +68,7 @@ function Navbar() {
                       session?.user.isVerified? (
                         <button>Register</button>
                       ) : (
-                        <Link href={`/`}>Register</Link>
+                        <Link href={`/login`}>Register</Link>
                       )
                     }
                     <Image src={Right} className="h-[1.05rem] w-5" />
