@@ -56,22 +56,32 @@ function Navbar() {
                           onClick={()=>signOut()}
                         >Log out</button>
                       ) : (
-                        <Link href={`/login`}>Log in</Link>
+                        <Link href={`/sign-in`}>Log in</Link>
                       )
                     }
                     <Image src={Right} className="h-[1.05rem] w-5" />
                   </div>
                 </div>
-                <div className="flex flex-row justify-center items-center group bg-[#F40C3F] xl:p-2 p-1 rounded-lg pl-3">
-                  <div className="flex items-center justify-between transform transition-transform duration-300 group-hover:translate-x-1">
+                <div className={`flex flex-row justify-center items-center group bg-[#F40C3F] xl:p-2 p-1 ${session?.user.isVerified ?'rounded-full':'rounded-lg'} pl-3`}>
+                  <div className="flex items-center justify-between">
                     {
                       session?.user.isVerified? (
-                        <button>Register</button>
+                        <button className="h-8 w-8 rounded-xl">
+                        <Image 
+                          src="https://res.cloudinary.com/dnw1mcx2h/image/upload/v1734109550/ouyss7092bsvsvlvrkan.png" 
+                          alt="Button Icon"
+                          width={32} // Match the width of the button
+                          height={32} // Match the height of the button
+                          className="rounded-xl" // Optional, ensures alignment with the button styling
+                        />
+                      </button>
                       ) : (
+                        <div className="group-hover:translate-x-1 flex flex-row justify-center items-center transform transition-transform duration-300">
                         <Link href={`/login`}>Register</Link>
+                        <Image src={Right} className="h-[1.05rem] w-5" />
+                        </div>
                       )
                     }
-                    <Image src={Right} className="h-[1.05rem] w-5" />
                   </div>
                 </div>
               </div>

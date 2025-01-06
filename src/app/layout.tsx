@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import localfont from "next/font/local";
 import AuthProvider from '../context/AuthProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +37,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <AuthProvider>
         <body className={` ${bigger.variable} ${editor.variable} bg-black`}>
           {children}
-          {/* <Toaster /> */}
+          <ToastContainer 
+          position="top-right" 
+          autoClose={3000} 
+          hideProgressBar={false} 
+          newestOnTop={true} 
+          closeButton={true}
+        />
         </body>
       </AuthProvider>
     </html>

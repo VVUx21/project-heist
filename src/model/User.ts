@@ -1,36 +1,25 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface Event extends Document {
-  eventname: string;
- }
-
- const EventSchema: Schema<Event> = new mongoose.Schema({
-  eventname: {
-    type: String,
-    required: true,
-  },
-});
-
 export interface User extends Document {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
   verifyCode: string;
-  verifyCodeExpiry: Date; 
+  verifyCodeExpiry: Date;
   isVerified: boolean;
-  uniquecode:string;
-  event: Event[];
+  uniquecode: string;
+  event: string[]; // Array of event names as strings
 }
 
-const UserSchema: Schema<User> = new mongoose.Schema({
+const UserSchema: Schema = new Schema({
   firstname: {
     type: String,
-    required: [true, 'Username is required'],
+    required: [true, 'Firstname is required'],
   },
   lastname: {
     type: String,
-    required: [true, 'Username is required'],
+    required: [true, 'Lastname is required'],
   },
   email: {
     type: String,
@@ -56,12 +45,15 @@ const UserSchema: Schema<User> = new mongoose.Schema({
   },
   uniquecode: {
     type: String,
-    required: [true, 'Unique Code is required',],
+    required: [true, 'Unique Code is required'],
   },
-  event:[EventSchema]
+  event: {
+    type: [String],
+    default: [],
+  },
 });
 
-const UserModel =
+const UserModel = 
   (mongoose.models.User as mongoose.Model<User>) ||
   mongoose.model<User>('User', UserSchema);
 
