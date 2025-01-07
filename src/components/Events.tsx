@@ -21,15 +21,15 @@ function Events() {
               key={event.id}
               className="group w-[320px] h-[370px] bg-[#F40C3F] text-white flex flex-col items-center justify-center border-4 border-bold border-white relative overflow-hidden"
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-500 group-hover:translate-y-[-100%]">
-                <div className="text-3xl font-bold mt-4">{event.title}</div>
+              <div className="absolute inset-0 flex flex-col items-center justify-start transition-transform duration-500 group-hover:translate-y-[-100%]">
+                <div className="text-3xl font-bold">{event.title}</div>
                 <div>
                   <Image
                     src={event.image}
                     alt={event.title}
                     width={320}
                     height={240}
-                    className="rounded-md"
+                    className=""
                   />
                 </div>
               </div>
