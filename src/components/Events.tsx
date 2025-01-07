@@ -14,8 +14,8 @@ function Events() {
   return (
     <>
       <div className="flex flex-col items-center mx-1 bg-black" id='Events'>
-        <div className="text-5xl tracking-wider font-bold font-bigger text-white mb-6 p-4">EVENTS</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-16 gap-20">
+        <div className="text-6xl tracking-wider font-bold font-bigger text-white mb-6 pt-10">EVENTS</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-20">
           {eventsData.map((event) => (
             <div
               key={event.id}
