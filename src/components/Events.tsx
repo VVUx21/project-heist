@@ -69,10 +69,10 @@ function Events() {
           {eventsData.map((event) => (
             <div
               key={event.id}
-              className="group w-[320px] h-[370px] bg-[#F40C3F] text-white flex flex-col items-center justify-center border-4 border-bold border-white relative overflow-hidden"
+              className="group w-[320px] h-[370px] bg-[#A20000] text-white flex flex-col items-center justify-center border-4 border-bold border-white relative overflow-hidden"
             >
               <div className="absolute inset-0 flex flex-col items-center justify-start transition-transform duration-500 group-hover:translate-y-[-100%]">
-                <div className="text-3xl font-bold">{event.title}</div>
+                <div className="text-2xl font-bold uppercase">{event.title}</div>
                 <div>
                   <Image
                     src={event.image}
@@ -85,7 +85,7 @@ function Events() {
               </div>
           
               <div className="absolute inset-0 bg-[#A20000] flex flex-col justify-between p-7 border-solid border-3 border-[#F40C3F] transform translate-y-[100%] transition-transform duration-500 group-hover:translate-y-0">
-                <div className="text-3xl font-bold text-center">{event.title}</div>
+                <div className="text-3xl font-bold text-center uppercase">{event.title}</div>
                 <div className="px-3 py-1 text-sm text-white">
                   {event.text}
                 </div>

@@ -35,7 +35,7 @@ const stallCategories = [
       "Mention in Expo Pamphlet included in Summit Registration Kit",
       "Exclusive interaction in investor’s Arena with booked slots",
       "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
+      "30 seconds Product video played once on the main screen on both days",
       "LED Screen",
     ],
   },
