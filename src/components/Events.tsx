@@ -87,7 +87,7 @@ function Events() {
                 </div>
                 <div className="flex justify-center gap-3">
                   <div className="bg-black text-white text-sm font-bold items-center flex justify-center px-4 cursor-pointer" onClick={()=>handleRegister(event.title)}>REGISTER ▶︎</div>
-                  <div className="bg-transparent border-[0.5px] border-solid border-white text-sm text-white font-bold py-2 px-4 cursor-pointer"><a href='./'>WEBSITE ▶︎</a></div>
+                  <div className="bg-transparent border-[0.5px] border-solid border-white text-sm text-white font-bold py-2 px-4 cursor-pointer"><a href={`/events/${event.title}`}>WEBSITE ▶︎</a></div>
                 </div>
               </div>
             </div>
