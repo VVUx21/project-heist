@@ -61,9 +61,7 @@ export default function Home() {
   return (
 
     <main className="relative overflow-hidden flex flex-col" id="Hero">
-      <div className="h-[90vh] sm:h-[90vh] md:h-[70vh] lg:h-[72.75vh]  bg-[#F40C3F] relative overflow-hidden flex flex-col">
-
-        
+      <div className="  bg-[#F40C3F] relative overflow-hidden flex flex-col">  
         <div className="max-w-[1920px]">
           <Image
             src={Wave}
@@ -126,7 +124,7 @@ export default function Home() {
       </div>
       </div>
 
-        <div className="relative flex-grow flex flex-col items-start sm:items-center justify-center px-10 sm:px-10 md:px-20 lg:px-20 py-2">
+        <div className="relative flex-grow pt-8 flex flex-col items-start sm:items-center justify-center px-10 sm:px-10 md:px-20 lg:px-20 py-2">
           <div className="flex flex-col sm:flex-row gap-3 z-2">
             {
               session?.user.isVerified? (
@@ -173,26 +171,16 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-[#F40C3F] mt-auto overflow-hidden" ref={maskRef}>
+      <div className="bg-[#F40C3F]  overflow-hidden pt-4" ref={maskRef}>
         <div 
           className="whitespace-nowrap"
-          style={{
-            transform: `translateX(-${maskScrollPosition % 100}%)`,
-            transition: 'transform 0.1s linear',
-          }}
         >
           {[...Array(10)].map((_, i) => (
             <div key={i} className="inline-block w-full">
               <Image
                 src={isLargeScreen ? Mask : Mask2}
                 alt="NES 2025"
-                width={isLargeScreen ? 1800 : 800}
-                height={isLargeScreen ? 500 : 150}
-                className={`${
-                  isLargeScreen
-                    ? "w-full h-[500px] sm:h-[450px] md:h-[275px] lg:h-[275px] xl:h-[250px]"
-                    : "w-full h-[275px] sm:w-[800px] sm:h-[330px] md:h-[300px] lg:h-[350px] xl:h-[400px]"
-                }`}
+                className={`w-screen`}
               />
             </div>
           ))}
