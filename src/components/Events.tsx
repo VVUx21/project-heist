@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import React from 'react';
 import { eventsData } from '@/data/eventData';
+import { useSession, getSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 interface Event {
   id: number;
@@ -11,6 +13,50 @@ interface Event {
 }
 
 function Events() {
+  const { data: session} = useSession();
+
+  const handleRegister = async (eventname: string) => {
+    // Check if events array exists and if the event is already registered
+    const existingEvents = session?.user.event || [];
+    if (Array.isArray(existingEvents)) {
+      const isAlreadyRegistered = existingEvents.map((name)=> name === eventname);
+      if (isAlreadyRegistered) {
+        toast.error(`You are already registered for the event: ${eventname}`);
+        return;
+      }
+    }
+  
+    try {
+      const response = await fetch(`/api/events`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: session?.user.email,
+          eventname: eventname,
+        }),
+        headers: { "Content-type": "application/json" },
+      });
+  
+      if (response.ok) {
+        const json = await response.json();
+        if (session?.user) {
+          if (!session.user.event) {
+            session.user.event = [];
+          }
+          session.user.event.push(eventname); // Push the string directly
+        }
+        
+        toast.success("Registration Successful");
+      } else {
+        // Handle non-ok responses
+        const errorData = await response.json();
+        toast.error(errorData.message || "Registration Failed");
+      }
+    } catch (error) {
+      toast.error("Registration Failed");
+      console.error("Error occurred during registration:", error);
+    }
+  };
+  
   return (
     <>
       <div className="flex flex-col items-center mx-1 bg-black" id='Events'>
@@ -40,8 +86,8 @@ function Events() {
                   {event.text}
                 </div>
                 <div className="flex justify-center gap-3">
-                  <div className="bg-black text-white text-sm font-bold items-center flex justify-center px-4 cursor-pointer"><a href='./'>REGISTER ▶︎</a></div>
-                  <div className="bg-transparent border-[0.5px] border-solid border-white text-sm text-white font-bold py-2 px-4 cursor-pointer"><a href='./'>RULEBOOK ▶︎</a></div>
+                  <div className="bg-black text-white text-sm font-bold items-center flex justify-center px-4 cursor-pointer" onClick={()=>handleRegister(event.title)}>REGISTER ▶︎</div>
+                  <div className="bg-transparent border-[0.5px] border-solid border-white text-sm text-white font-bold py-2 px-4 cursor-pointer"><a href='./'>WEBSITE ▶︎</a></div>
                 </div>
               </div>
             </div>

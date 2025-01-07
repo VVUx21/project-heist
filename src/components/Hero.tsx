@@ -160,7 +160,7 @@ export default function Home() {
                 <button 
               className="group bg-transparent duration-300 text-white px-6 py-2 text-base font-bold w-[230px] sm:w-[160px] h-[40px] sm:h-auto border-2 border-black relative flex items-center justify-center"
             >
-              <Link href={`/login`}>
+              <Link href={`/sign-in`}>
                   LOGIN
                 </Link>
               <ChevronRight className="w-4 h-4 text-white ml-1 transition-transform duration-300 group-hover:translate-x-3" />

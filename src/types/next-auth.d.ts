@@ -7,6 +7,7 @@ declare module 'next-auth' {
       isVerified?: boolean;
       email?: string;
       firstname?: string;
+      event?:string[]
     } & DefaultSession['user'];
   }
 
@@ -15,6 +16,7 @@ declare module 'next-auth' {
     isVerified?: boolean;
     email?: string;
     firstname?: string;
+    event?:string[]
   }
 }
 

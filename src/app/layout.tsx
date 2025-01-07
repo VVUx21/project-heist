@@ -3,8 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import localfont from "next/font/local";
 import AuthProvider from '../context/AuthProvider';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +42,15 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <body className={` ${bigger.variable} ${editor.variable} bg-black`}>
           <Navbar />
           {children}
+
+          <ToastContainer 
+          position="top-right" 
+          autoClose={3000} 
+          hideProgressBar={false} 
+          newestOnTop={true} 
+          closeButton={true}
+        />
+
           <Footer />
           {/* <Toaster /> */}
         </body>
