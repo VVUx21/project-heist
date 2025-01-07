@@ -6,9 +6,6 @@ import AuthProvider from '../context/AuthProvider';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,7 +37,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <AuthProvider>
         <body className={` ${bigger.variable} ${editor.variable} bg-black`}>
-          <Navbar />
           {children}
 
           <ToastContainer 
@@ -51,8 +47,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           closeButton={true}
         />
 
-          <Footer />
-          {/* <Toaster /> */}
         </body>
       </AuthProvider>
     </html>

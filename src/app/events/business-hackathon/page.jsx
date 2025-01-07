@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const AboutData = [
   { title: "Attendee count", number: "50K+", icon: "/Events/icon1.png" },
@@ -111,6 +113,7 @@ const Page = () => {
 
   return (
     <>
+      <Navbar />
       <section
         className={`relative w-full md:bg-[url("/Events/hero.webp")] lg:min-h-screen bg-cover bg-bottom flex flex-col justify-between items-center overflow-hidden`}
         // style={{ backgroundImage: 'url(")' }}
@@ -218,6 +221,7 @@ const Page = () => {
           ))}
         </div>
       </section>
+      <Footer/>
     </>
   );
 };

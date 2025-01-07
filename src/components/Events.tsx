@@ -14,12 +14,16 @@ interface Event {
 
 function Events() {
   const { data: session} = useSession();
-
   const handleRegister = async (eventname: string) => {
-    // Check if events array exists and if the event is already registered
+    //console.log("Existing Events:", session?.user.event);
+  
     const existingEvents = session?.user.event || [];
+  
     if (Array.isArray(existingEvents)) {
-      const isAlreadyRegistered = existingEvents.map((name)=> name === eventname);
+      const isAlreadyRegistered = existingEvents.some(
+        (name) => name.trim().toLowerCase() === eventname.trim().toLowerCase()
+      );
+  
       if (isAlreadyRegistered) {
         toast.error(`You are already registered for the event: ${eventname}`);
         return;
@@ -33,27 +37,27 @@ function Events() {
           email: session?.user.email,
           eventname: eventname,
         }),
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-Type": "application/json" },
       });
   
       if (response.ok) {
         const json = await response.json();
+  
         if (session?.user) {
           if (!session.user.event) {
             session.user.event = [];
           }
-          session.user.event.push(eventname); // Push the string directly
+          session.user.event.push(eventname); 
         }
-        
+  
         toast.success("Registration Successful");
       } else {
-        // Handle non-ok responses
         const errorData = await response.json();
         toast.error(errorData.message || "Registration Failed");
       }
     } catch (error) {
-      toast.error("Registration Failed");
-      console.error("Error occurred during registration:", error);
+      toast.error("An error occurred during registration");
+      console.error("Error during registration:", error);
     }
   };
   
