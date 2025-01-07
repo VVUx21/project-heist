@@ -15,7 +15,7 @@ const Footer = () => {
             <div className="flex flex-col xl:flex-row items-center space-x-2 mb-4">
               <img src="/ecell logo.svg" alt="E-Cell Logo" className="h-5" />
               <span className="font-semibold font-editorial text-[25px] whitespace-nowrap">
-                 Entrepreneurship Cell
+                Entrepreneurship Cell
               </span>
             </div>
             <div className="flex space-x-4 mb-4 mt-4 xl:justify-start justify-center">
@@ -126,7 +126,7 @@ const Footer = () => {
               <div>
                 <p className="text-white font-semibold">Email</p>
                 <p className="text-gray-400 hover:underline">
-                  contact@meagency.io
+                  nes@ecellnitrkl.in
                 </p>
               </div>
             </div>
@@ -137,11 +137,9 @@ const Footer = () => {
                 className="h-7 w-5"
               />
               {/* <span>(+44) 7522 - 507979</span> */}
-              <div>
+              <div className="">
                 <p className="text-white font-semibold">Phone</p>
-                <p className="text-gray-400 hover:underline">
-                  (+44) 7522 - 507979
-                </p>
+                <p className="text-gray-400 hover:underline">+919937241286</p>
               </div>
             </div>
           </div>
