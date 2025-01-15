@@ -65,7 +65,7 @@ const Footer = () => {
           <div className="sm:block hidden ml-4">
             <div className="flex justify-around mb-4">
               <div>
-                <h2 className="text-lg font-semibold mb-4">MENU</h2>
+                <h2 className="text-lg font-semibold mb-4 md:mr-10">MENU</h2>
                 <ul className="space-y-2">
                   <li>
                     <a href="#" className="hover:underline">
@@ -160,8 +160,8 @@ const Footer = () => {
               {/* <span>(+44) 7522 - 507979</span> */}
               <div className="">
                 <p className="text-white font-semibold">Phone</p>
-                <p className="text-gray-400 hover:underline">+919937241286</p>
-                <p className="text-gray-400 hover:underline">+916205733273</p>
+                <p className="text-gray-400 hover:underline">+91 9937241286 (Soyanshu Sahoo)</p>
+                <p className="text-gray-400 hover:underline">+91 62057 33273 (Roshan)</p>
               </div>
             </div>
           </div>
