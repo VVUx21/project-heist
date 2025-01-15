@@ -40,7 +40,7 @@ export async function POST(request: Request) {
 
     const existingUser = await UserModel.findOne({ email });
     if (existingUser && !existingUser.isVerified) {
-      existingUser.password = hashedPassword;
+      // existingUser.password = hashedPassword;
       existingUser.verifyCode = verifyCode;
       existingUser.verifyCodeExpiry = verifyCodeExpiry;
       await existingUser.save();
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
         firstname,
         lastname,
         email,
-        password: hashedPassword,
+        // password: hashedPassword,
         verifyCode,
         verifyCodeExpiry,
         isVerified: false,

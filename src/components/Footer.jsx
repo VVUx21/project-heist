@@ -99,7 +99,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-
+              <div className="flex flex-col gap-7">
               <div className="sm:block hidden">
                 <h2 className="text-lg font-semibold mb-4">PAGES</h2>
                 <ul className="space-y-2">
@@ -109,6 +109,27 @@ const Footer = () => {
                     </a>
                   </li>
                 </ul>
+              </div>  
+              <div className="sm:block hidden">
+                <h2 className="text-lg font-semibold mb-4">BROCHURES</h2>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="https://drive.google.com/file/d/16eYXo6FosoxC-kUpzNsqkvyj9T7HB4Zk/view?usp=drivesdk" className="hover:underline">
+                      Guest Lecture
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://drive.google.com/file/d/12VvSNvT-RqOV1JzozY5LOuxzoTF0rSse/view?usp=drivesdk" className="hover:underline">
+                      Startup Expo
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://drive.google.com/file/d/1WgQUrUpfK738wxHA-F4Lbs65IEHIdHZF/view?usp=drivesdk" className="hover:underline">
+                    Sponsorship Brochure
+                    </a>
+                  </li>
+                </ul>
+              </div>
               </div>
             </div>
           </div>
@@ -140,6 +161,7 @@ const Footer = () => {
               <div className="">
                 <p className="text-white font-semibold">Phone</p>
                 <p className="text-gray-400 hover:underline">+919937241286</p>
+                <p className="text-gray-400 hover:underline">+916205733273</p>
               </div>
             </div>
           </div>

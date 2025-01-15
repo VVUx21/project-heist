@@ -3,56 +3,135 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import "@/components/Sponsors/Sponsors.css";
+import { sponsorData } from "@/Data/SponsorData";
+import "@/components/Investors/Investors.css";
+import { investorsData } from "@/Data/InvestorsData";
+
+const Investors = () => {
+  return (
+    <div className='bg-black' id='Investors'>
+        <div className='text-center text-3xl sm:text-4xl text-white md:text-5xl lg:text-6xl font-extrabold font-bigger mt-8 mb-4'>
+            <p>PAST <span className='text-black gradient pt-[7.5px] pl-2 pr-2 '>INVESTORS</span></p>
+        </div>
+        <div className="w-full">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-4 flex flex-col justify-center items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center items-center">
+            {investorsData.map((team, index) => (
+                <div key={team.id} className="w-96 overflow-hidden flex flex-col justify-center items-center">
+                    <div>
+                        <Image className="object-center object-cover h-auto w-full rounded-lg" src={team.image} alt={team.alt}
+                        width={500}
+                        height={500}
+                        layout='fixed'
+                        />
+                    </div>
+                    <div className="text-center py-8 sm:py-4 w-full font-poppins">
+                        <p className="text-xl sm:text-2xl md:text-3xl  text-white font-semibold text-center">{team.name}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+</div>
+    </div>
+  )
+}
+
+function Sponsors() {
+  return (
+    <div className='pb-[1rem] bg-black' id='Sponsors'>
+  <div className="relative font-inter antialiased">
+  <div className='text-center text-3xl text-white sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-bigger mt-8 mb-4'>
+            <p>PAST <span className='text-black gradient pt-[7.5px] pl-2 pr-2 '>SPONSORS</span></p>
+        </div>
+
+<main className="relative h-full flex flex-col justify-center overflow-hidden">
+    <div className="w-full max-w-5xl mx-auto px-4 md:px-6 py-16">
+        <div className="text-center">
+
+            
+            <div
+                x-data="{}"
+                x-init="$nextTick(() => {
+                    let ul = $refs.logos;
+                    ul.insertAdjacentHTML('afterend', ul.outerHTML);
+                    ul.nextSibling.setAttribute('aria-hidden', 'true');
+                })"
+                className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+            >
+                <ul x-ref="logos" className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                  { sponsorData.map((item) => (
+                    <li key={item.id}>
+                        <div className="h-32 w-32 relative">
+                        <Image src={item.imageUrl} alt="Facebook" layout='fill' className='rounded-full' objectFit='cover'/>
+                        </div>
+                    </li>
+                    ))}
+                </ul>                
+            </div>
+
+            <div
+                x-data="{}"
+                x-init="$nextTick(() => {
+                    let ul = $refs.logos;
+                    ul.insertAdjacentHTML('afterend', ul.outerHTML);
+                    ul.nextSibling.setAttribute('aria-hidden', 'true');
+                })"
+                className="w-full mt-[3rem] sm:inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] hidden"
+            >
+                <ul x-ref="logos" className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll-rtl ">
+                  { sponsorData.map((item) => (
+                    <li key={item.id}>
+                        <div className="h-32 w-32 relative">
+                        <Image src={item.imageUrl} alt="Facebook" layout='fill' className='rounded-full' objectFit='cover'/>
+                        </div>
+                    </li>
+                    ))}
+                </ul>                
+            </div>
+                       
+        </div>
+
+    </div>
+</main>
+
+</div>
+    </div>
+  )
+}
 
 const AboutData = [
-  { title: "Attendee count", number: "50K+", icon: "/Events/icon1.png" },
+  { title: "Attendee count", number: "25K+", icon: "/Events/icon1.png" },
   { title: "Venue", number: "NIT ROURKELA", icon: "/Events/icon2.png" },
-  { title: "Professional count", number: "300+", icon: "/Events/icon3.png" },
+  { title: "Investors count", number: "50+", icon: "/Events/icon3.png" },
 ];
 
 const stallCategories = [
   {
-    title: "SILVER",
+    title: "BASIC",
     features: [
       "3m x 3m stall",
-      "2 chair, 1 table and dustbin",
-      "Light and electricity socket",
+      "2 chair, 1 table",
+      "1 electricity socket",
       "Fascia (name of the startup)",
-      "Mention in Expo Pamphlet included in Summit Registration Kit",
-      "Exclusive interaction in investor’s Arena with booked slots",
-      "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
-      "LED Screen",
+      "Interaction with other Startups and Investors",
+      "1 Company Poster"
     ],
   },
   {
-    title: "GOLD",
+    title: "PREMIUM",
     features: [
       "3m x 3m stall",
-      "2 chair, 1 table and dustbin",
-      "Light and electricity socket",
+      "2 chair, 1 table",
+      "1 electricity socket",
       "Fascia (name of the startup)",
-      "Mention in Expo Pamphlet included in Summit Registration Kit",
-      "Exclusive interaction in investor’s Arena with booked slots",
-      "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
-      "LED Screen",
+      "Interaction with other Startups and Investors",
+      "One Company Banner(Standee)+ 2 Company Posters",
+      "LED Screens for display",
+      "Product Video played every 15 minutes on the Main screen",
     ],
-  },
-  {
-    title: "PLATINUM",
-    features: [
-      "3m x 3m stall",
-      "2 chair, 1 table and dustbin",
-      "Light and electricity socket",
-      "Fascia (name of the startup)",
-      "Mention in Expo Pamphlet included in Summit Registration Kit",
-      "Exclusive interaction in investor’s Arena with booked slots",
-      "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
-      "LED Screen",
-    ],
-  },
+  }
 ];
 
 const TimelineItem = ({ event, index }) => {
@@ -102,13 +181,13 @@ const TimelineItem = ({ event, index }) => {
 const Page = () => {
   const timelineData = [
     {
-      date: "26 January 2024",
-      description: "Registration Opens",
+      date: "20 December 2024",
+      description: "Registration Starts",
       id: "event1",
     },
-    { date: "27 January 2024", description: "Workshops Begin", id: "event2" },
-    { date: "28 January 2024", description: "Hackathon Day 1", id: "event3" },
-    { date: "29 January 2024", description: "Hackathon Day 2", id: "event4" },
+    { date: "15 January 2025", description: "Teams Shortlisting & Due Diligence", id: "event2" },
+    { date: "1-2 February 2025", description: "Startup Expo", id: "event3" },
+    // { date: "29 January 2024", description: "Hackathon Day 2", id: "event4" },
   ];
 
   return (
@@ -148,13 +227,10 @@ const Page = () => {
           />
           <div className="max-w-6xl text-sm sm:text-lg md:text-xl leading-relaxed px-6 md:px-14">
             <p className="uppercase">
-              GET READY FOR PRODUCT TESTING AND MASS NETWORKING
+            TEST, CONNECT, AND COLLABRATE – ALL IN ONE PLACE.
             </p>
             <p className="mt-5">
-              StartupExpo is an exhibition event for startups that draws
-              participants, speakers, investors, and organisations from all
-              around India. Startups will have a fantastic platform to share
-              their cutting-edge innovations and join a supportive community.{" "}
+            A vibrant platform is provided for showcasing innovation and creativity. Live product demos are presented, hands-on workshops are conducted, and connections with investors and industry leaders are facilitated. Awards are offered for entrepreneurial excellence, and dynamic Q&A sessions ensure an engaging and collaborative experience for all participants.{" "}
             </p>
           </div>
           <div className="flex flex-col md:flex-row items-center gap-10 mt-10">
@@ -200,7 +276,7 @@ const Page = () => {
         <h2 className="text-6xl font-bigger font-extrabold uppercase text-center mb-10 tracking-wider">
           Stalls <span className="text-red-600">Category</span>
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {stallCategories.map((category, index) => (
             <div
               key={index}
@@ -221,6 +297,8 @@ const Page = () => {
           ))}
         </div>
       </section>
+      <Investors />
+      <Sponsors />
       <Footer />
     </>
   );

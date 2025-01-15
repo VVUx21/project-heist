@@ -2,19 +2,37 @@ export const eventsData = [
   {
     "id": 1,
     "title": "shark-tank",
-    "image": "https://res.cloudinary.com/dgtdkqfsx/image/upload/v1736207772/DALL_E_2025-01-07_05.19.50_-_A_professional_flat_icon_design_for_a_Shark_Tank-style_startup_expo_featuring_a_bold_geometric_shark_fin_integrated_into_a_business_theme._The_design_bzprnf.webp",
+    "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736977413/oe7av6icomcvtoau0fgq.jpg",
     "text": "Pitch innovative ideas to top investors for funding and mentorship. Witness startups turning dreams into reality at NES 2025's most awaited event."
   },
   {
     "id": 2,
     "title": "startup-expo",
-    "image": "https://res.cloudinary.com/dgtdkqfsx/image/upload/v1736207772/DALL_E_2025-01-07_05.19.43_-_A_minimalistic_flat_icon_design_with_geometric_shapes_featuring_a_clean_white_background._The_design_incorporates_bold_red_lines_and_shapes_resembli_dvn1ha.webp",
+    "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736977447/qvhmvyyo48bgh3xqy1vz.jpg",
      "text": "Discover groundbreaking products and solutions while startups connect with investors, mentors, and customers for growth opportunities."
   },
   {
-    "id": 8,
-    "title": "business-hackathon",
-    "image": "https://res.cloudinary.com/dgtdkqfsx/image/upload/v1736207772/DALL_E_2025-01-07_05.19.47_-_A_professional_flat_icon_design_featuring_a_laptop_with_bold_red_geometric_shapes_integrated_into_the_design._The_laptop_screen_displays_symbols_of_bu_rwdhud.webp",
-     "text": " A 24-hour innovation marathon solving real-world challenges. Compete for prizes and industry recognition with creative solutions"
+    "id": 3,
+    "title": "IPL AUCTIONS",
+    "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736974975/bl9flb8wcgk5fowyfbj7.webp",
+     "text": "Experience the thrill as teams strategize and bid to secure top cricket talent, shaping their squads for IPL glory."
+  },
+  {
+    "id": 4,
+    "title": "TRADING EVENTS",
+    "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736975035/qp9lhr1aoc2xbmuqwjmd.webp",
+     "text": "Explore market trends, gain insights from experts, and engage in live trading sessions to enhance your financial knowledge."
+  },
+  {
+    "id": 5,
+    "title": "GUEST LECTURES",
+    "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736975116/qdb1ribtbnolh9lrbmu9.webp",
+     "text": "Engage with experts as they share insights, experiences, and knowledge, inspiring and guiding audiences toward personal and professional growth."
+  },
+  {
+    "id": 6,
+    "title": "ENTREPRENEURIAL WORKSHOP",
+    "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736975201/o4xlrxq2vm154zz9rtdh.webp",
+     "text": "Ignite innovation and learn essential skills as entrepreneurs collaborate, brainstorm ideas, and develop strategies to build successful ventures."
   }
 ]
