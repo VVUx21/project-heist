@@ -72,7 +72,7 @@ function Events() {
               className="group w-[320px] h-[370px] bg-[#A20000] text-white flex flex-col items-center justify-center border-4 border-bold border-white relative overflow-hidden"
             >
               <div className="absolute inset-0 flex flex-col items-center justify-start transition-transform duration-500 group-hover:translate-y-[-100%]">
-                <div className="text-2xl font-bold uppercase">{event.title}</div>
+                <div className="text-[1.27rem] font-bold uppercase">{event.title}</div>
                 <div>
                   <Image
                     src={event.image}
@@ -86,12 +86,15 @@ function Events() {
           
               <div className="absolute inset-0 bg-[#A20000] flex flex-col justify-between p-7 border-solid border-3 border-[#F40C3F] transform translate-y-[100%] transition-transform duration-500 group-hover:translate-y-0">
                 <div className="text-3xl font-bold text-center uppercase">{event.title}</div>
-                <div className="px-3 py-1 text-sm text-white">
+                <div className="px-3 py-1 text-base text-white">
                   {event.text}
                 </div>
                 <div className="flex justify-center gap-3">
-                  <div className="bg-black text-white text-sm font-bold items-center flex justify-center px-4 cursor-pointer" onClick={()=>handleRegister(event.title)}>REGISTER ▶︎</div>
-                  <div className="bg-transparent border-[0.5px] border-solid border-white text-sm text-white font-bold py-2 px-4 cursor-pointer"><a href={`/events/${event.title}`}>WEBSITE ▶︎</a></div>
+                  <div className="bg-black text-white text-sm font-bold items-center flex justify-center px-4 py-2 cursor-pointer" onClick={()=>handleRegister(event.title)}>REGISTER ▶︎</div>
+                  {event.id < 3 && (
+             <div className="bg-transparent border-[0.5px] border-solid border-white text-sm text-white font-bold py-2 px-4 cursor-pointer">
+             <a href={`/events/${event.title}`}>WEBSITE ▶︎</a>
+                </div>  )}
                 </div>
               </div>
             </div>

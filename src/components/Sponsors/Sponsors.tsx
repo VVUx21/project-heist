@@ -7,7 +7,7 @@ function Sponsors() {
     <div className='pb-[1rem] bg-black' id='Sponsors'>
   <div className="relative font-inter antialiased">
   <div className='text-center text-3xl text-white sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-bigger mt-8 mb-4'>
-            <p>PAST <span className='text-black gradient pt-[7.5px] pl-2 pr-2 '>SPONSORS</span></p>
+            <p><span className='text-black gradient pt-[7.5px] pl-2 pr-2 '>SPONSORS</span></p>
         </div>
 
 <main className="relative h-full flex flex-col justify-center overflow-hidden">

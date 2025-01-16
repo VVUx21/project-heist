@@ -19,6 +19,8 @@ import { useToast } from './ui/use-toast';
 import { ApiResponse } from "@/types/Apiresponse";
 import { useRouter } from 'next/navigation';
 import { Loader2 } from "lucide-react";
+import { Label } from "@radix-ui/react-label";
+import FileUpload from './Firebase';
 
 export const VerifyEmail=z.object({
   code:z.string().length(6,'Verification code is 6 digits long')
@@ -38,7 +40,9 @@ export const SignupSchema = z
 
 const RegisterForm = ({type,email}:{type:string,email:any}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [about, setAbout] = useState("");
   const { toast } = useToast();
+  const [fileUrl, setFileUrl] = useState('');
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -56,33 +60,6 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
       code:"",
     },
   })
-  
-  const handleSendOtp = async (
-    data: z.infer<typeof VerifyEmail>
-  ) => {
-    try {
-      const response = await axios.post<ApiResponse>(`/api/verifycode`, {
-        code: data.code,
-        uniquecode:email,
-      });
-
-      toast({
-        title: 'Success',
-        description: response.data.message,
-      });
-
-      router.replace('/sign-in');
-    } catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-      toast({
-        title: 'Verification Failed',
-        description:
-          axiosError.response?.data.message ??
-          'An error occurred. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
 
   const handleverification = async (
     data: z.infer<typeof SignupSchema>
@@ -132,14 +109,17 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
       setIsSubmitting(false);
   };
   }
+
+  const handleUploadSuccess = (url:string) => {
+    setFileUrl(url);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="w-full max-w-md px-6 py-8 bg-[#420D0D] rounded-lg shadow-lg">
-        <h1 className="text-5xl tracking-wider font-bold font-bigger text-center text-white mb-8">
-          {type ==='signup'? 'REGISTER' : 'VERIFY'}
+        <h1 className="text-5xl tracking-wider font-bold font-bigger text-center text-white mb-4">
+          REGISTER
         </h1>
-        {
-          type === 'signup'?(
             <Form {...form}>
             <form onSubmit={(e) => { e.preventDefault();
               form.handleSubmit(handleverification)(e);}} className="space-y-6">
@@ -151,7 +131,7 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="block text-sm font-poppins text-white mb-2"
-                        >Firstname</FormLabel>
+                        >Name</FormLabel>
                         <FormControl>
                           <Input {...field} 
                           placeholder="Enter..."
@@ -170,12 +150,13 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="block text-sm font-poppins text-white mb-2"
-                        >Lastname</FormLabel>
+                        >Phone no.</FormLabel>
                         <FormControl>
                           <Input {...field} 
                           placeholder="Enter..."
                           className="w-full px-3 py-2 bg-white/20 border border-gray-300 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                           />
+                          
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -184,62 +165,35 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
                 </div>
               </div>
               <Inputform form={form} name="email" label="Email" placeholder="Enter..." />
-              <Inputform form={form} name="password" label="Password" placeholder="Enter..." />
-              <Inputform form={form} name="confirmPassword" label="Confirm Password" placeholder="Enter..." />
+              <Inputform form={form} name="startupname" label="Startup Name" placeholder="Enter..." />
+              <div className="flex flex-col gap-2">
+               <label htmlFor="about" className="text-base font-poppins font-bold">
+                  About
+                 </label>
+                 <input
+                  type="text"
+                  name="about"
+                  placeholder="Enter..."
+                  className="h-12 p-2 transition-all duration-300 bg-white/20 border-gray-300 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  value={about}
+                  disabled={false}
+                  onChange={(e) => setAbout(e.target.value)}
+                  style={{ cursor: 'text' }}
+                 />
+          </div>
+          <div className="flex flex-col gap-2">
+          <label htmlFor="about" className="text-base font-poppins bolder">Pitch Deck</label>
+          <FileUpload onUploadSuccess={handleUploadSuccess} />
+          </div>
               <Button
             type="submit"
             disabled={isSubmitting}
             className="w-full py-3 mt-5 font-poppins text-white bg-red-500 rounded-md hover:bg-red-600 transition duration-200"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                'Send OTP'
-              )}
+             Register
             </Button>
             </form>
-            <p className="mt-4 text-center font-poppins text-white">
-              Already registered?{" "}
-                <a href="/sign-in" className="text-red-500 hover:underline">
-                  Login
-                </a>
-            </p>
           </Form>
-          ):(
-            <Form {...formverify}>
-          <form onSubmit={(e) => { e.preventDefault(); formverify.handleSubmit(handleSendOtp)(e);}} className="space-y-6">
-            <div className="">
-                <FormField
-                  control={formverify.control}
-                  name="code"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="block text-sm font-poppins text-white mb-2"
-                      >Verification Code</FormLabel>
-                      <FormControl>
-                        <Input {...field} 
-                        placeholder="Enter OTP..."
-                        className="w-full px-3 py-2 bg-white/20 border border-gray-300 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-            </div>
-            <Button
-          type="submit"
-            className="w-full py-3 mt-5 font-poppins text-white bg-red-500 rounded-md hover:bg-red-600 transition duration-200"
-          >
-            Verify
-          </Button>
-          </form>
-        </Form>
-          )
-        }
       </div>
     </div>
   );
