@@ -22,10 +22,6 @@ import { Loader2 } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import FileUpload from './Firebase';
 
-export const VerifyEmail=z.object({
-  code:z.string().length(6,'Verification code is 6 digits long')
-})
-
 export const SignupSchema = z
   .object({
     firstname: z.string().min(2, 'First name must be at least 2 characters long'),
@@ -38,7 +34,7 @@ export const SignupSchema = z
     .min(8, 'Confirm password must be at least 8 characters long')
   })
 
-const RegisterForm = ({type,email}:{type:string,email:any}) => {
+const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [about, setAbout] = useState("");
   const { toast } = useToast();
@@ -54,13 +50,7 @@ const RegisterForm = ({type,email}:{type:string,email:any}) => {
     },
   })
   const router = useRouter();
-  const formverify = useForm<z.infer<typeof VerifyEmail>>({
-    resolver: zodResolver(VerifyEmail),
-    defaultValues: {
-      code:"",
-    },
-  })
-
+  
   const handleverification = async (
     data: z.infer<typeof SignupSchema>
   ) => {
