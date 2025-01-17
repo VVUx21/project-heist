@@ -65,7 +65,7 @@ const FileUpload = ({ onUploadSuccess }) => {
   };
 
   return (
-    <div className=" flex flex-row ">
+    <div className=" flex flex-row justify-between gap-2">
       <div className="">
         <input
           type="file"
@@ -81,7 +81,7 @@ const FileUpload = ({ onUploadSuccess }) => {
       {!downloadURL && (<button
         onClick={handleUpload}
         disabled={!file || uploading}
-        className="bg-red-500 rounded-md hover:bg-red-600 text-white font-bold h-10 px-2 disabled:opacity-50 text-sm md:text-base"
+        className="bg-red-500 rounded-md hover:bg-red-600 text-white font-bold h-10 px-2 disabled:opacity-50 text-[0.7rem] md:text-base"
       >
         {uploading ? "Uploading..." : "Upload File"}
       </button> )}

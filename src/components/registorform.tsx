@@ -1,6 +1,9 @@
 "use client"
 import React, { useState, FormEvent } from 'react';
 import { Send } from 'lucide-react';
+import FileUpload from './Firebase';
+import { toast } from 'react-toastify';
+import { useSession } from 'next-auth/react';
 
 interface FormData {
   name: string;
@@ -8,39 +11,86 @@ interface FormData {
   email: string;
   startupName: string;
   startupDescription: string;
-  pitchDeck: File | null;
-  productPhoto: File | null;
+  pitchDeck: string;
+  productPhoto: string;
+  payment:string
 }
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ eventName }: { eventName: string }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phoneNumber: '',
     email: '',
     startupName: '',
     startupDescription: '',
-    pitchDeck: null,
-    productPhoto: null,
+    pitchDeck: '',
+    productPhoto: '',
+    payment:''
   });
+  const { data: session } = useSession();
 
-  const handleSubmit = (e: FormEvent) => {
+  const isValidUrl = (str: string): boolean => {
+    try {
+      new URL(str);
+      return true;
+   } catch {
+     return false;
+   }
+ };
+
+  const handleSubmit = async(e: FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    if (!isValidUrl(formData.productPhoto)) {
+      setFormData((prev) => ({ ...prev, productPhoto: '' })); // Or handle invalid URL case as needed
+      toast.error("Give a valid url")
+  } 
+
+  try {
+    const response = await fetch(`api/register`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({user_id:session?.user._id ,email:formData.email,Name:formData.name,phonenumber:formData.phoneNumber,startupname:formData.startupName,about:formData.startupDescription,pitchdeck:formData.pitchDeck,photo:formData.productPhoto,payment:formData.payment, eventname:eventName}),
+    });
+    if(response.ok){
+      const result = await response.json();
+      toast.success("Registered Successfully")
+      setFormData({
+        name: '',
+        phoneNumber: '',
+        email: '',
+        startupName: '',
+        startupDescription: '',
+        pitchDeck: '',
+        productPhoto: '',
+        payment:''
+      })
+      window.location.href = "/#Events";
+    }
+  } catch (error) {
+    toast.error("Registration Unsuccessful")
+    console.log(error)
+  } 
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: 'pitchDeck' | 'productPhoto') => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData(prev => ({
-        ...prev,
-        [field]: e.target.files![0]
-      }));
-    }
+  const handleUploadSuccess = (url:string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      pitchdeck: url,
+    }));
+  };
+
+  const handleUploadSuccess2 = (url:string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      payment: url,
+    }));
   };
 
   return (
     <div className="w-full max-w-2xl mx-auto p-6 bg-[#420D0D] backdrop-blur-lg rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold text-white-800 mb-6">Startup Expo Registration</h2>
+      <h2 className="text-2xl font-bold text-white-800 mb-6">{`${eventName} Registration`}</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
@@ -119,31 +169,51 @@ const RegistrationForm = () => {
         </div>
 
         {/* Pitch Deck */}
-        <div>
-          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white-700">
-            Pitch Deck <span className="text-white-500">(PDF or DOC)</span>
+         <div>
+          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white-700 mb-2">
+          Pitch Deck <span className="text-white-500">(PDF or DOC)</span>
           </label>
-          <input
-            type="file"
-            id="pitchDeck"
-            accept=".pdf,.doc,.docx"
-            onChange={(e) => handleFileChange(e, 'pitchDeck')}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-white-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-          />
-        </div>
+          <FileUpload onUploadSuccess={handleUploadSuccess} />
+        </div>  
+         
+         {/* Payment Receipt  */}
+          {(eventName == "Startup Expo") && (
+         <div>
+          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white-700 mb-2">
+          Payment Receipt <span className="text-white-500">(PDF or DOC)</span>
+          </label>
+          <FileUpload onUploadSuccess={handleUploadSuccess2} />
+        </div>             
+       )}
 
         {/* Product/Model Photo */}
         <div>
           <label htmlFor="productPhoto" className="block text-sm font-medium text-white-700">
-            Product/Model Photo <span className="text-white-500">(Image)</span>
+            Product/Model Photo URL <span className="text-white-500">(Image)</span>
           </label>
           <input
-            type="file"
-            id="productPhoto"
-            accept="image/*"
-            onChange={(e) => handleFileChange(e, 'productPhoto')}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-white-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-          />
+             type="text"
+             id="imageurl"
+            className="mt-1 block w-full px-3 py-2 bg-white border border-white-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            value={formData.productPhoto}
+             onChange={(e) => {
+             const url = e.target.value;
+             const isValidUrl = (str: string): boolean => {
+            try {
+              new URL(str);
+              return true;
+           } catch {
+             return false;
+           }
+         };
+          if (isValidUrl(url)) {
+              setFormData((prev) => ({ ...prev, productPhoto: url }));
+          } else {
+              setFormData((prev) => ({ ...prev, productPhoto: '' })); // Or handle invalid URL case as needed
+              toast.error("Give a valid url")
+           }
+        }}
+        />
         </div>
 
         {/* Submit Button */}

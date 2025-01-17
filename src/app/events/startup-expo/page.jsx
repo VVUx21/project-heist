@@ -209,7 +209,7 @@ const Page = () => {
 
         {/* Center Register Button */}
         <div className="mb-[4rem] mt-10">
-          <Link className="px-6 py-3 bg-red-900 text-white font-bold text-lg rounded-lg shadow-md hover:bg-red-700 transition duration-300" href="/register">
+          <Link className="px-6 py-3 bg-red-900 text-white font-bold text-lg rounded-lg shadow-md hover:bg-red-700 transition duration-300" href="/register/startup-expo">
             Register
           </Link>
         </div>
