@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface User extends Document {
   name: string;
   email: string;
-  image: string;
+  // image: string;
   is_verified: boolean;
   event: string[]; // Array of event names as strings
 }
@@ -19,10 +19,10 @@ const UserSchema: Schema = new Schema({
     unique: true,
     match: [/.+\@.+\..+/, 'Please use a valid email address'],
   },
-  image: {
-    type: String,
-    required: [true, 'Image is required'],
-  },
+  // image: {
+  //   type: String,
+  //   required: [true, 'Image is required'],
+  // },
   is_verified: {
     type: Boolean,
     default: false,

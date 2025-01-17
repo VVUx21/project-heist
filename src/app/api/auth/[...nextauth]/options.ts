@@ -76,7 +76,7 @@ export const authOptions: NextAuthOptions = {
           const user = await UserModel.create({
             name: profile.name,
             email: profile.email,
-            image: profile.picture,
+            // image: profile.picture,
             is_verified: true,
           });
         }
