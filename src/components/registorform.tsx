@@ -82,6 +82,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
   } catch (error) {
     toast.error("Registration Unsuccessful")
     console.log(error)
+    router.push("/");
   } 
   };
 
