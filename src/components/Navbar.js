@@ -74,7 +74,7 @@ function Navbar() {
                     <Image src={Right} className="h-[1.05rem] w-5" />
                   </div>
                 </div>
-                <div className="flex flex-row justify-center items-center group bg-[#F40C3F] xl:p-2 p-1 rounded-lg pl-3">
+                {/* <div className="flex flex-row justify-center items-center group bg-[#F40C3F] xl:p-2 p-1 rounded-lg pl-3">
                   <div className="flex items-center justify-between transform transition-transform duration-300 group-hover:translate-x-1">
                     {session?.user.isVerified ? (
                       <button>Register</button>
@@ -83,7 +83,7 @@ function Navbar() {
                     )}
                     <Image src={Right} className="h-[1.05rem] w-5" />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

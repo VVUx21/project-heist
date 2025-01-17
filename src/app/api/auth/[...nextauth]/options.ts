@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({profile}) {
-      console.log(profile)
+      //console.log(profile)
       try {
         await dbConnect();
         if (!profile) {
