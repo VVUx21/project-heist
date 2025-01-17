@@ -297,8 +297,6 @@ const Page = () => {
           ))}
         </div>
       </section>
-      <Investors />
-      <Sponsors />
       <Footer />
     </>
   );

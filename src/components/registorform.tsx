@@ -46,7 +46,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
   } 
 
   try {
-    const response = await fetch(`api/register`, {
+    const response = await fetch(`/api/upload`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export const config = {
-  matcher: ['/sign-in', '/register', '/verify','/events'],
+  matcher: [
+    '/sign-in',
+    '/register/:path*', 
+    '/verify' 
+  ],
 };
 
 export async function middleware(request: NextRequest) {
@@ -10,19 +14,22 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET!,
   });
+
   const url = request.nextUrl;
 
-  console.log("Token:", token);
+  //console.log("Token:", token);
 
   if (
     token &&
-    (url.pathname.startsWith("/sign-in") ||
-      url.pathname.startsWith("/verify"))
+    (url.pathname.startsWith("/sign-in") || url.pathname.startsWith("/verify"))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!token && (url.pathname.startsWith("/register")|| url.pathname.startsWith("/events"))) {
+  if (
+    !token &&
+    (url.pathname.startsWith("/register") || url.pathname.startsWith("/events"))
+  ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
