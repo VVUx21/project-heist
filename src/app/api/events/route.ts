@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     // Step 3: Validate the input fields
     if (!email || !eventname) {
       return Response.json(
-        { success: false, message: "All fields are required." },
+        { success: false, message: "Signin first to register" },
         { status: 400 }
       );
     }
