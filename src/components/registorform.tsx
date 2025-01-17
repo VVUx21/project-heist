@@ -4,6 +4,7 @@ import { Send } from 'lucide-react';
 import FileUpload from './Firebase';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 interface FormData {
   name: string;
@@ -17,6 +18,7 @@ interface FormData {
 }
 
 const RegistrationForm = ({ eventName }: { eventName: string }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phoneNumber: '',
@@ -66,7 +68,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
         productPhoto: '',
         payment:''
       })
-      window.location.href = "/#Events";
+      router.push("/#Events");
     }
   } catch (error) {
     toast.error("Registration Unsuccessful")
