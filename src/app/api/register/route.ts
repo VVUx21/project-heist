@@ -24,7 +24,7 @@ export async function POST(request:Request){
 
     const existing = await RegisterModel.findOne({ email });
 
-    if(existing){
+    if(existing?.eventname == eventname){
         return Response.json(
             { success: false, message: 'You have already registered', data:existing },
             { status: 400 }
