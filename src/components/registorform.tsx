@@ -1,10 +1,14 @@
 "use client"
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent,useEffect } from 'react';
 import { Send } from 'lucide-react';
-import FileUpload from './Firebase';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+
+const FileUpload = dynamic(() => import('./Firebase'), {
+  ssr: false
+});
 
 interface FormData {
   name: string;
@@ -19,6 +23,7 @@ interface FormData {
 
 const RegistrationForm = ({ eventName }: { eventName: string }) => {
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phoneNumber: '',
@@ -30,6 +35,10 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
     payment:''
   });
   const { data: session } = useSession();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const isValidUrl = (str: string): boolean => {
     try {
@@ -89,6 +98,10 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
       payment: url,
     }));
   };
+
+  if (!isClient) {
+    return null; // or a loading spinner
+  }
 
   return (
     <div className="w-full max-w-2xl mx-auto p-6 bg-[#420D0D] backdrop-blur-lg rounded-2xl shadow-lg">
