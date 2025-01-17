@@ -4,18 +4,19 @@ export interface Register extends Document {
   user_id: string;
   Name: string;
   email: string;
-  phonenumber: number;
+  phonenumber: string;
   startupname: string;
   about: string;
   pitchdeck: string;
   photo: string;
+  eventname:string;
+  payment:string
 }
 
 const RegisterSchema: Schema = new Schema({
   user_id:{
      type:String,
      required:true,
-     unique:true
   },
   Name: {
     type: String,
@@ -24,11 +25,10 @@ const RegisterSchema: Schema = new Schema({
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
     match: [/.+\@.+\..+/, 'Please use a valid email address'],
   },
   phonenumber: {
-    type: Number,
+    type: String,
     required: [true, 'Phonenumber is required'],
   },
   startupname: {
@@ -47,10 +47,18 @@ const RegisterSchema: Schema = new Schema({
     type: String,
     default: "",
   },
+  eventname:{
+    type:String,
+    required: true,
+  },
+  payment:{
+    type:String,
+    default:""
+  }
 });
 
 const RegisterModel = 
-  (mongoose.models.User as mongoose.Model<Register>) ||
-  mongoose.model<Register>('User', RegisterSchema);
+  (mongoose.models.Register as mongoose.Model<Register>) ||
+  mongoose.model<Register>('Register', RegisterSchema);
 
 export default RegisterModel;

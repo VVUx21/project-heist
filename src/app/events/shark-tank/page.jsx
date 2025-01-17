@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 const AboutData = [
   { title: "Attendee count", number: "50K+", icon: "/Events/icon1.png" },
@@ -130,9 +131,9 @@ const Page = () => {
 
         {/* Center Register Button */}
         <div className="mb-[4rem] mt-10">
-          <button className="px-6 py-3 bg-red-900 text-white font-bold text-lg rounded-lg shadow-md hover:bg-red-700 transition duration-300">
+          <Link className="px-6 py-3 bg-red-900 text-white font-bold text-lg rounded-lg shadow-md hover:bg-red-700 transition duration-300" href="/register/shark-tank">
             Register
-          </button>
+          </Link>
         </div>
       </section>
 
