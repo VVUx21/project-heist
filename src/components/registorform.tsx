@@ -68,7 +68,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
         productPhoto: '',
         payment:''
       })
-      router.push("/#Events");
+      router.push("/");
     }
   } catch (error) {
     toast.error("Registration Unsuccessful")
