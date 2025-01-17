@@ -6,54 +6,36 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 const AboutData = [
-  { title: "Attendee count", number: "50K+", icon: "/Events/icon1.png" },
+  { title: "Attendee count", number: "25K+", icon: "/Events/icon1.png" },
   { title: "Venue", number: "NIT ROURKELA", icon: "/Events/icon2.png" },
-  { title: "Professional count", number: "300+", icon: "/Events/icon3.png" },
+  { title: "Investors count", number: "50+", icon: "/Events/icon3.png" },
 ];
 
 const stallCategories = [
   {
-    title: "SILVER",
+    title: "BASIC",
     features: [
       "3m x 3m stall",
-      "2 chair, 1 table and dustbin",
-      "Light and electricity socket",
+      "2 chair, 1 table",
+      "1 electricity socket",
       "Fascia (name of the startup)",
-      "Mention in Expo Pamphlet included in Summit Registration Kit",
-      "Exclusive interaction in investor’s Arena with booked slots",
-      "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
-      "LED Screen",
+      "Interaction with other Startups and Investors",
+      "1 Company Poster"
     ],
   },
   {
-    title: "GOLD",
+    title: "PREMIUM",
     features: [
       "3m x 3m stall",
-      "2 chair, 1 table and dustbin",
-      "Light and electricity socket",
+      "2 chair, 1 table",
+      "1 electricity socket",
       "Fascia (name of the startup)",
-      "Mention in Expo Pamphlet included in Summit Registration Kit",
-      "Exclusive interaction in investor’s Arena with booked slots",
-      "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
-      "LED Screen",
+      "Interaction with other Startups and Investors",
+      "One Company Banner(Standee)+ 2 Company Posters",
+      "LED Screens for display",
+      "Product Video played every 15 minutes on the Main screen",
     ],
-  },
-  {
-    title: "PLATINUM",
-    features: [
-      "3m x 3m stall",
-      "2 chair, 1 table and dustbin",
-      "Light and electricity socket",
-      "Fascia (name of the startup)",
-      "Mention in Expo Pamphlet included in Summit Registration Kit",
-      "Exclusive interaction in investor’s Arena with booked slots",
-      "Invitation to networking Snacks",
-      "30 seconds Product video played once on the main screen on both the days",
-      "LED Screen",
-    ],
-  },
+  }
 ];
 
 const TimelineItem = ({ event, index }) => {
@@ -103,13 +85,13 @@ const TimelineItem = ({ event, index }) => {
 const Page = () => {
   const timelineData = [
     {
-      date: "26 January 2024",
-      description: "Registration Opens",
+      date: "20 December 2024",
+      description: "Registration Starts",
       id: "event1",
     },
-    { date: "27 January 2024", description: "Workshops Begin", id: "event2" },
-    { date: "28 January 2024", description: "Hackathon Day 1", id: "event3" },
-    { date: "29 January 2024", description: "Hackathon Day 2", id: "event4" },
+    { date: "15 January 2025", description: "Teams Shortlisting & Due Diligence", id: "event2" },
+    { date: "1-2 February 2025", description: "Shark Tank", id: "event3" },
+    // { date: "29 January 2024", description: "Hackathon Day 2", id: "event4" },
   ];
 
   return (
@@ -152,7 +134,7 @@ const Page = () => {
               GET READY FOR PRODUCT TESTING AND MASS NETWORKING
             </p>
             <p className="mt-5">
-              StartupExpo is an exhibition event for startups that draws
+              Shark Tank is an exhibition event for startups that draws
               participants, speakers, investors, and organisations from all
               around India. Startups will have a fantastic platform to share
               their cutting-edge innovations and join a supportive community.{" "}
@@ -201,7 +183,7 @@ const Page = () => {
         <h2 className="text-6xl font-bigger font-extrabold uppercase text-center mb-10 tracking-wider">
           Stalls <span className="text-red-600">Category</span>
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {stallCategories.map((category, index) => (
             <div
               key={index}

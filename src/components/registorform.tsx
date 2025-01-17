@@ -54,7 +54,15 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
     if (!isValidUrl(formData.productPhoto)) {
       setFormData((prev) => ({ ...prev, productPhoto: '' })); // Or handle invalid URL case as needed
       toast.error("Give a valid url")
+      return;
   } 
+
+  if(eventName == "Startup Expo"){
+    if(formData.payment == ''){
+      toast.error("Complete Payment for Registration")
+      return;
+    }
+  }
 
   try {
     const response = await fetch(`/api/upload`, {
@@ -111,7 +119,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-white-700">
+          <label htmlFor="name" className="block text-sm font-medium text-white">
             Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -126,7 +134,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
         {/* Phone Number */}
         <div>
-          <label htmlFor="phoneNumber" className="block text-sm font-medium text-white-700">
+          <label htmlFor="phoneNumber" className="block text-sm font-medium text-white">
             Phone Number <span className="text-red-500">*</span>
           </label>
           <input
@@ -141,7 +149,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-white-700">
+          <label htmlFor="email" className="block text-sm font-medium text-white">
             Email ID <span className="text-red-500">*</span>
           </label>
           <input
@@ -156,7 +164,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
         {/* Startup Name */}
         <div>
-          <label htmlFor="startupName" className="block text-sm font-medium text-white-700">
+          <label htmlFor="startupName" className="block text-sm font-medium text-white">
             Startup Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -171,7 +179,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
         {/* Startup Description */}
         <div>
-          <label htmlFor="startupDescription" className="block text-sm font-medium text-white-700">
+          <label htmlFor="startupDescription" className="block text-sm font-medium text-white">
             What is the Startup About? <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -186,7 +194,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
         {/* Pitch Deck */}
          <div>
-          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white-700 mb-2">
+          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white mb-2">
           Pitch Deck <span className="text-white-500">(PDF or DOC)</span>
           </label>
           <FileUpload onUploadSuccess={handleUploadSuccess} />
@@ -195,7 +203,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
          {/* Payment Receipt  */}
           {(eventName == "Startup Expo") && (
          <div>
-          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white-700 mb-2">
+          <label htmlFor="pitchDeck" className="block text-sm font-medium text-white mb-2">
           Payment Receipt <span className="text-white-500">(PDF or DOC)</span>
           </label>
           <FileUpload onUploadSuccess={handleUploadSuccess2} />
@@ -204,7 +212,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
         {/* Product/Model Photo */}
         <div>
-          <label htmlFor="productPhoto" className="block text-sm font-medium text-white-700">
+          <label htmlFor="productPhoto" className="block text-sm font-medium text-white">
             Product/Model Photo URL <span className="text-white-500">(Image)</span>
           </label>
           <input
