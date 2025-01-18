@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
 
   const url = request.nextUrl;
 
-  //console.log("Token:", token);
+  //console.log("Token:", tokkken);
 
   if (
     token &&
