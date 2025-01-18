@@ -7,10 +7,13 @@ import Right from "../../public/arrow_forward_ios_24dp_E8EAED_FILL0_wght400_GRAD
 import { useSession, getSession } from "next-auth/react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
+
   // const handleGoogleSignIn = async () => {
   //   try {
   //     await signIn('google', { callbackUrl: '/' });
@@ -57,7 +60,13 @@ function Navbar() {
               )
             )}
             <div>
-              <div className="flex-row w-fit xl:gap-4 gap-3 hidden lg:flex">
+              <div className="flex-row w-fit xl:gap-4 gap-3 hidden lg:flex" onClick={()=>{
+                if(session?.user.isVerified){
+                  signOut();
+                }else{
+                  router.push("/sign-in")
+                }
+              }}>
                 <div className="flex flex-row justify-center items-center border-2 border-[#F40C3F] rounded-lg xl:p-2 group hover:cursor-pointer p-1">
                   <div className="flex items-center text-white justify-between transform transition-transform duration-300 group-hover:translate-x-1">
                   {session?.user.isVerified ? (
@@ -65,11 +74,11 @@ function Navbar() {
                         Log out
                       </button>
                     ) : (
-                      <Link href={`/sign-in`}>
+                      <div onClick={()=>router.push("/sign-in")}>
                       <button type="button">
                         Log in
                       </button>
-                      </Link>
+                      </div>
                     )}
                     <Image src={Right} className="h-[1.05rem] w-5" />
                   </div>
