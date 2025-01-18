@@ -11,6 +11,7 @@ import { ChevronRight } from 'lucide-react'
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
+import { useRouter } from 'next/navigation';
 
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);
@@ -34,6 +35,7 @@ export default function Home() {
   const [maskScrollPosition, setMaskScrollPosition] = useState(0)
   const maskRef = useRef<HTMLDivElement>(null);
   const { data: session} = useSession()
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -130,19 +132,19 @@ export default function Home() {
               session?.user.isVerified? (
                 <button
                   className="group bg-black duration-300 text-white px-6 py-2 text-base font-bold w-[230px] sm:w-[160px] h-[40px] sm:h-auto border-2 border-black relative flex items-center justify-center"
-                >
-                  <Link href={`/`}>
+                  onClick={()=> router.push("/")}>
+                  <div>
                   REGISTER
-                  </Link>
+                  </div>
                   <ChevronRight className="w-4 h-4 text-white ml-1 transition-transform duration-300 group-hover:translate-x-3" />
                 </button>
               ):(
                 <button 
               className="group bg-black duration-300 text-white px-6 py-2 text-base font-bold w-[230px] sm:w-[160px] h-[40px] sm:h-auto border-2 border-black relative flex items-center justify-center"
-            >
-                <Link href={`/sign-in`}>
+              onClick={()=>router.push("/sign-in")}>
+                <div>
                   REGISTER
-                </Link>
+                </div>
               <ChevronRight className="w-4 h-4 text-white ml-1 transition-transform duration-300 group-hover:translate-x-3" />
             </button>
               )
@@ -159,10 +161,10 @@ export default function Home() {
               ):(
                 <button 
               className="group bg-transparent duration-300 text-white px-6 py-2 text-base font-bold w-[230px] sm:w-[160px] h-[40px] sm:h-auto border-2 border-black relative flex items-center justify-center"
-            >
-              <Link href={`/sign-in`}>
+              onClick={()=>router.push("/sign-in")}>
+              <div>
                   LOGIN
-                </Link>
+                </div>
               <ChevronRight className="w-4 h-4 text-white ml-1 transition-transform duration-300 group-hover:translate-x-3" />
             </button>
               )
