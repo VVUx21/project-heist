@@ -199,32 +199,33 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
           </label>
           <FileUpload onUploadSuccess={handleUploadSuccess} />
         </div>  
-         
-    {/* UPI Payment Section */}
-    <div className="bg-[#5A2323] p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold text-white mb-3">UPI Payment Details</h3>
-      <div className="flex flex-col items-center gap-3">
-        {/* UPI Scanner Image */}
-        <img
-          src="https://res.cloudinary.com/dgtdkqfsx/image/upload/v1737407553/85002429435sbi_page-0001_vr6chm.jpg"
-          alt="UPI Scanner"
-          className="w-40 h-40 object-contain rounded-lg"
-        />
-        {/* UPI ID */}
-        <div className="text-white font-medium">
-          <p>UPI ID: <span className="text-gray-300">85002429435@upi</span></p>
-        </div>
-      </div>
-    </div>
 
     {/* Payment Receipt */}
     {eventName === "Startup Expo" && (
+      <>
+      {/* UPI Payment Section */}
+    <div className="bg-[#5A2323] p-4 rounded-lg shadow-md">
+    <h3 className="text-lg font-semibold text-white mb-3">UPI Payment Details</h3>
+    <div className="flex flex-col items-center gap-3">
+      {/* UPI Scanner Image */}
+      <img
+        src="https://res.cloudinary.com/dgtdkqfsx/image/upload/v1737407553/85002429435sbi_page-0001_vr6chm.jpg"
+        alt="UPI Scanner"
+        className="w-40 h-40 object-contain rounded-lg"
+      />
+      {/* UPI ID */}
+      <div className="text-white font-medium">
+        <p>UPI ID: <span className="text-gray-300">85002429435@upi</span></p>
+      </div>
+    </div>
+  </div>
       <div>
         <label htmlFor="paymentReceipt" className="block text-sm font-medium text-white mb-2">
           Payment Receipt <span className="text-white-500">(PDF or DOC)</span>
         </label>
         <FileUpload onUploadSuccess={handleUploadSuccess2} />
       </div>
+      </>
     )}
 
     {/* Product/Model Photo */}
