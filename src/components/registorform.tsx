@@ -17,13 +17,14 @@ interface FormData {
   startupName: string;
   startupDescription: string;
   pitchDeck: string;
-  productPhoto: string;
-  payment:string
 }
 
 const RegistrationForm = ({ eventName }: { eventName: string }) => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
+  const [fileUrl, setFileUrl] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phoneNumber: '',
@@ -31,8 +32,6 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
     startupName: '',
     startupDescription: '',
     pitchDeck: '',
-    productPhoto: '',
-    payment:''
   });
   const { data: session } = useSession();
 
@@ -40,71 +39,69 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
     setIsClient(true);
   }, []);
 
-  const isValidUrl = (str: string): boolean => {
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
     try {
-      new URL(str);
-      return true;
-   } catch {
-     return false;
-   }
- };
-
-  const handleSubmit = async(e: FormEvent) => {
-    e.preventDefault();
-    if (!isValidUrl(formData.productPhoto)) {
-      setFormData((prev) => ({ ...prev, productPhoto: '' })); 
-      toast.error("Give a valid url")
-      return;
-  } 
-
-  if(eventName == "Startup Expo"){
-    if(formData.payment == ''){
-      toast.error("Complete Payment for Registration")
-      return;
-    }
-  }
-
-  try {
-    const response = await fetch(`/api/upload`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({user_id:session?.user._id ,email:formData.email,Name:formData.name,phonenumber:formData.phoneNumber,startupname:formData.startupName,about:formData.startupDescription,pitchdeck:formData.pitchDeck,photo:formData.productPhoto,payment:formData.payment, eventname:eventName}),
-    });
-    if(response.ok){
-      const result = await response.json();
-      toast.success("Registered Successfully")
-      setFormData({
-        name: '',
-        phoneNumber: '',
-        email: '',
-        startupName: '',
-        startupDescription: '',
-        pitchDeck: '',
-        productPhoto: '',
-        payment:''
-      })
+      const response = await fetch(`/api/upload`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({user_id:session?.user._id ,email:formData.email,Name:formData.name,phonenumber:formData.phoneNumber,startupname:formData.startupName,about:formData.startupDescription,pitchdeck:formData.pitchDeck,photo:fileUrl,eventname:eventName}),
+      });
+      if(response.ok){
+        const result = await response.json();
+        toast.success("Registered Successfully")
+        setFormData({
+          name: '',
+          phoneNumber: '',
+          email: '',
+          startupName: '',
+          startupDescription: '',
+          pitchDeck: '',
+        })
+        router.push("/");
+      }
+    } catch (error) {
+      toast.error("Registration Unsuccessful")
+      console.log(error)
       router.push("/");
-    }
-  } catch (error) {
-    toast.error("Registration Unsuccessful")
-    console.log(error)
-    router.push("/");
-  } 
+    } 
   };
+  
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files && event.target.files[0]) {
+        setFile(event.target.files[0]);
+      }
+    };
+    const handleUpload = async () => {
+      if (!file) return;
+        if(!file) return;
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append("file", file);
 
+        try {
+            const response = await fetch("/api/imageupload", {
+                method: "POST",
+                body: formData
+            })
+
+            if(!response.ok) throw new Error("Failed to upload image");
+
+            const data = await response.json();
+            setFileUrl(data.secure_url);
+        } catch (error) {
+            console.log(error)
+            alert("Failed to upload image");
+        } finally{
+            setIsUploading(false);
+        }
+  };
   const handleUploadSuccess = (url:string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       pitchdeck: url,
-    }));
-  };
-
-  const handleUploadSuccess2 = (url:string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      payment: url,
     }));
   };
 
@@ -200,64 +197,31 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
           <FileUpload onUploadSuccess={handleUploadSuccess} />
         </div>  
 
-    {/* Payment Receipt */}
-    {eventName === "Startup Expo" && (
-      <>
-      {/* UPI Payment Section */}
-    <div className="bg-[#5A2323] p-4 rounded-lg shadow-md">
-    <h3 className="text-lg font-semibold text-white mb-3">UPI Payment Details</h3>
-    <div className="flex flex-col items-center gap-3">
-      {/* UPI Scanner Image */}
-      <img
-        src="https://res.cloudinary.com/dgtdkqfsx/image/upload/v1737407553/85002429435sbi_page-0001_vr6chm.jpg"
-        alt="UPI Scanner"
-        className="w-40 h-40 object-contain rounded-lg"
-      />
-      {/* UPI ID */}
-      <div className="text-white font-medium">
-        <p>UPI ID: <span className="text-gray-300">85002429435@upi</span></p>
-      </div>
-    </div>
-  </div>
-      <div>
-        <label htmlFor="paymentReceipt" className="block text-sm font-medium text-white mb-2">
-          Payment Receipt <span className="text-white-500">(PDF or DOC)</span>
-        </label>
-        <FileUpload onUploadSuccess={handleUploadSuccess2} />
-      </div>
-      </>
-    )}
-
     {/* Product/Model Photo */}
-    <div>
-          <label htmlFor="productPhoto" className="block text-sm font-medium text-white">
-            Product/Model Photo URL <span className="text-white-500">(Image)</span>
+    <label htmlFor="pitchDeck" className="block text-sm font-medium text-white mb-2">
+          Product Photo
           </label>
-          <input
-             type="text"
-             id="imageurl"
-            className="mt-1 block w-full px-3 py-2 bg-white border border-white-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-            value={formData.productPhoto}
-             onChange={(e) => {
-             const url = e.target.value;
-             const isValidUrl = (str: string): boolean => {
-            try {
-              new URL(str);
-              return true;
-           } catch {
-             return false;
-           }
-         };
-          if (isValidUrl(url)) {
-              setFormData((prev) => ({ ...prev, productPhoto: url }));
-          } else {
-              setFormData((prev) => ({ ...prev, productPhoto: '' })); // Or handle invalid URL case as needed
-              toast.error("Give a valid url")
-           }
-        }}
-        />
-        </div>
-
+    <div className=" flex flex-row justify-between gap-2">
+                <div className="">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-50 file:text-blue-700
+                        hover:file:bg-blue-100"
+                  />
+                </div>
+                {!fileUrl && (<button
+                  type="button"
+                  onClick={() => handleUpload()}
+                  className="bg-red-500 rounded-md hover:bg-red-600 text-white font-bold h-10 px-2 disabled:opacity-50 text-[0.7rem] md:text-base"
+                >
+                  {uploading ? "Uploading..." : "Upload File"}
+                </button> )}
+              </div>
     {/* Submit Button */}
     <button
       type="submit"
@@ -271,5 +235,4 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
   );
 };
-
 export default RegistrationForm;

@@ -10,7 +10,6 @@ export interface Register extends Document {
   pitchdeck: string;
   photo: string;
   eventname:string;
-  payment:string
 }
 
 const RegisterSchema: Schema = new Schema({
@@ -50,10 +49,6 @@ const RegisterSchema: Schema = new Schema({
   eventname:{
     type:String,
     required: true,
-  },
-  payment:{
-    type:String,
-    default:""
   }
 });
 

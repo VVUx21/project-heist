@@ -13,7 +13,7 @@ export async function POST(request:Request){
       }
 
       try {
-        const { user_id,email,Name,phonenumber,startupname,about,pitchdeck,photo,payment,eventname } = await request.json();
+        const { user_id,email,Name,phonenumber,startupname,about,pitchdeck,photo,eventname } = await request.json();
 
     if (!user_id || !email || !Name || !phonenumber || !startupname || !about || !eventname) {
       return Response.json(
@@ -30,7 +30,7 @@ export async function POST(request:Request){
             { status: 400 }
           );
     }else{
-        const newregister = new RegisterModel({user_id:user_id,email:email,Name:Name,phonenumber:phonenumber,startupname:startupname,about:about,pitchdeck:pitchdeck,photo:photo,payment:payment,eventname:eventname});
+        const newregister = new RegisterModel({user_id:user_id,email:email,Name:Name,phonenumber:phonenumber,startupname:startupname,about:about,pitchdeck:pitchdeck,photo:photo,eventname:eventname});
         await newregister.save();
         return Response.json(
             {

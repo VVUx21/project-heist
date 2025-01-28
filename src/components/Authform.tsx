@@ -19,8 +19,6 @@ import { useToast } from './ui/use-toast';
 import { ApiResponse } from "@/types/Apiresponse";
 import { useRouter } from 'next/navigation';
 import { Loader2 } from "lucide-react";
-import { Label } from "@radix-ui/react-label";
-import FileUpload from './Firebase';
 
 export const SignupSchema = z
   .object({
@@ -36,9 +34,10 @@ export const SignupSchema = z
 
 const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [about, setAbout] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const { toast } = useToast();
   const [fileUrl, setFileUrl] = useState('');
+  const [uploading, setIsUploading] = useState(false);
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -50,11 +49,15 @@ const RegisterForm = () => {
     },
   })
   const router = useRouter();
-  
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
   const handleverification = async (
     data: z.infer<typeof SignupSchema>
   ) => {
-    setIsSubmitting(true);
+      setIsSubmitting(true);
     try {
       if(data.password != data.confirmPassword){
         toast({
@@ -64,13 +67,12 @@ const RegisterForm = () => {
         setIsSubmitting(false);
         return;
       }
-      let uniquecode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
       const userdata={
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
         password: data.password,
-        uniquecode:uniquecode,
+        image: fileUrl,
       }
       const response = await axios.post<ApiResponse>('/api/signup',userdata);
 
@@ -78,9 +80,7 @@ const RegisterForm = () => {
         title: 'Success',
         description: response.data.message,
       });
-
-      router.replace(`/verify/${uniquecode}`);
-
+      router.replace(`/login`);
       setIsSubmitting(false);
     } catch (error) {
       console.error('Error during sign-up:', error);
@@ -100,8 +100,29 @@ const RegisterForm = () => {
   };
   }
 
-  const handleUploadSuccess = (url:string) => {
-    setFileUrl(url);
+  const handleUpload = async () => {
+      if (!file) return;
+        if(!file) return;
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const response = await fetch("/api/imageupload", {
+                method: "POST",
+                body: formData
+            })
+
+            if(!response.ok) throw new Error("Failed to upload image");
+
+            const data = await response.json();
+            setFileUrl(data.secure_url);
+        } catch (error) {
+            console.log(error)
+            alert("Failed to upload image");
+        } finally{
+            setIsUploading(false);
+        }
   };
 
   return (
@@ -121,7 +142,7 @@ const RegisterForm = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="block text-sm font-poppins text-white mb-2"
-                        >Name</FormLabel>
+                        >Firstname</FormLabel>
                         <FormControl>
                           <Input {...field} 
                           placeholder="Enter..."
@@ -140,13 +161,12 @@ const RegisterForm = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="block text-sm font-poppins text-white mb-2"
-                        >Phone no.</FormLabel>
+                        >Lastname</FormLabel>
                         <FormControl>
                           <Input {...field} 
                           placeholder="Enter..."
                           className="w-full px-3 py-2 bg-white/20 border border-gray-300 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                           />
-                          
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -155,37 +175,67 @@ const RegisterForm = () => {
                 </div>
               </div>
               <Inputform form={form} name="email" label="Email" placeholder="Enter..." />
-              <Inputform form={form} name="startupname" label="Startup Name" placeholder="Enter..." />
-              <div className="flex flex-col gap-2">
-               <label htmlFor="about" className="text-base font-poppins font-bold">
-                  About
-                 </label>
-                 <input
-                  type="text"
-                  name="about"
-                  placeholder="Enter..."
-                  className="h-12 p-2 transition-all duration-300 bg-white/20 border-gray-300 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-                  value={about}
-                  disabled={false}
-                  onChange={(e) => setAbout(e.target.value)}
-                  style={{ cursor: 'text' }}
-                 />
+              <Inputform form={form} name="password" label="Password" placeholder="Enter..." />
+              <Inputform form={form} name="confirmPassword" label="Confirm Password" placeholder="Enter..." />
+              <div className="bg-[#5A2323] p-4 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold text-white mb-3">UPI Payment Details</h3>
+                <div className="flex flex-col items-center gap-3">
+                  {/* UPI Scanner Image */}
+                  <img
+                    src="https://res.cloudinary.com/dgtdkqfsx/image/upload/v1737407553/85002429435sbi_page-0001_vr6chm.jpg"
+                    alt="UPI Scanner"
+                    className="w-40 h-40 object-contain rounded-lg"
+                  />
+                  {/* UPI ID */}
+                  <div className="text-white font-medium">
+                    <p>UPI ID: <span className="text-gray-300">85002429435@upi</span></p>
+                  </div>
+                </div>
+              </div>
+              <div className=" flex flex-row justify-between gap-2">
+                <div className="">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-50 file:text-blue-700
+                        hover:file:bg-blue-100"
+                  />
+                </div>
+                {!fileUrl && (<button
+                  type="button"
+                  onClick={() => handleUpload()}
+                  className="bg-red-500 rounded-md hover:bg-red-600 text-white font-bold h-10 px-2 disabled:opacity-50 text-[0.7rem] md:text-base"
+                >
+                  {uploading ? "Uploading..." : "Upload File"}
+                </button> )}
+              </div>
+                <Button
+                type="submit"
+                disabled={isSubmitting || !fileUrl}
+                className="w-full py-3 mt-5 font-poppins text-white bg-red-500 rounded-md hover:bg-red-600 transition duration-200"
+                >
+                {
+                  isSubmitting ? (
+                    <Loader2 className="w-6 h-6" />
+                  ) : (
+                    "Register"
+                  )
+                }
+                </Button>
+                </form>
+              </Form>
+              <p className="mt-4 text-center font-poppins text-white">
+                Already Registered?{" "}
+                <a href="/login" className="text-red-500 hover:underline">
+                Login
+                </a>
+              </p>
           </div>
-          <div className="flex flex-col gap-2">
-          <label htmlFor="about" className="text-base font-poppins bolder">Pitch Deck</label>
-          <FileUpload onUploadSuccess={handleUploadSuccess} />
-          </div>
-              <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full py-3 mt-5 font-poppins text-white bg-red-500 rounded-md hover:bg-red-600 transition duration-200"
-            >
-             Register
-            </Button>
-            </form>
-          </Form>
       </div>
-    </div>
   );
 };
 

@@ -1,17 +1,23 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface User extends Document {
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  // image: string;
-  is_verified: boolean;
+  password: string;
+  isVerified: boolean;
+  image: string;
   event: string[]; // Array of event names as strings
 }
 
 const UserSchema: Schema = new Schema({
-  name: {
+  firstname: {
     type: String,
-    required: [true, 'Name is required'],
+    required: [true, 'Username is required'],
+  },
+  lastname: {
+    type: String,
+    required: [true, 'Username is required'],
   },
   email: {
     type: String,
@@ -19,14 +25,17 @@ const UserSchema: Schema = new Schema({
     unique: true,
     match: [/.+\@.+\..+/, 'Please use a valid email address'],
   },
-  // image: {
-  //   type: String,
-  //   required: [true, 'Image is required'],
-  // },
-  is_verified: {
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+  },
+  isVerified: {
     type: Boolean,
     default: false,
-    required: [true, 'Verification status is required'],
+  },
+  image: {
+    type: String,
+    required: [true, 'Payment url is required'],
   },
   event: {
     type: [String],

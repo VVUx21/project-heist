@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     // Step 4: Check if the user exists and is verified
     const existingVerifiedUser = await UserModel.findOne({
       email,
-      is_verified: true,
+      isVerified: true,
     });
 
     if (!existingVerifiedUser) {

@@ -17,7 +17,7 @@ const editor =localfont({
   variable:"--fonts-editor",
 })
 export const metadata: Metadata = {
-  title: "NES || NIT ROURKELA",
+  title: "NES | NIT ROURKELA",
   description: "National Entrepreneurship Summit, NIT Rourkela",
 };
 const bigger = localfont({
