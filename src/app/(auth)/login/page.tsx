@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
-export const Registor=z.object({
+const Registor=z.object({
     email: z.string().email('Please enter a valid email address'),
     password: z.string().min(8, 'Password must be at least 8 characters long'),
 })

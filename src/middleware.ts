@@ -5,7 +5,7 @@ export const config = {
   matcher: [
     '/sign-in',
     '/register/:path*', 
-    '/verify' 
+    '/login' 
   ],
 };
 
@@ -17,11 +17,11 @@ export async function middleware(request: NextRequest) {
 
   const url = request.nextUrl;
 
-  //console.log("Token:", tokkken);
+  //console.log("Token:", token);
 
   if (
     token &&
-    (url.pathname.startsWith("/sign-in") || url.pathname.startsWith("/verify"))
+    (url.pathname.startsWith("/sign-in") || url.pathname.startsWith("/login"))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }

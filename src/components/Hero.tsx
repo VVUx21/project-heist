@@ -63,7 +63,7 @@ export default function Home() {
   return (
 
     <main className="relative overflow-hidden flex flex-col" id="Hero">
-      <div className="  bg-[#F40C3F] relative overflow-hidden flex flex-col">  
+      <div className="  bg-[#F40C3F] relative overflow-x-hidden flex flex-col">  
         <div className="max-w-[1920px]">
           <Image
             src={Wave}

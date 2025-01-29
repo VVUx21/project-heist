@@ -91,6 +91,7 @@ const RegistrationForm = ({ eventName }: { eventName: string }) => {
 
             const data = await response.json();
             setFileUrl(data.secure_url);
+            toast.success("Image uploaded successfully");
         } catch (error) {
             console.log(error)
             alert("Failed to upload image");

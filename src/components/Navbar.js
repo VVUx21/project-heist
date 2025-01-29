@@ -48,7 +48,13 @@ function Navbar() {
             />
           </div>
           <div className="md:flex flex-row h-max lg:w-[85%] md:w-[90%] gap-6 items-center justify-end hidden font-poppins">
-            {["Home","Events", "About Us", "Speakers", "Sponsors", "Investors"].map(
+                <Link
+                  href={`/`}
+                  className="hover:text-[#F40C3F] text-white cursor-pointer xl:text-xl"
+                >
+                  Home
+                </Link>
+            {["Events", "About Us", "Speakers", "Sponsors", "Investors"].map(
               (item, index) => (
                 <Link
                   key={index}
@@ -104,7 +110,18 @@ function Navbar() {
           className={`fixed top-20 z-50 w-full h-[calc(100vh-5rem)] bg-black md:hidden flex flex-col gap-[0.1rem]
     justify-center items-center font-poppins opacity-95`}
         >
-          {["Home","Events", "About Us", "Speakers", "Sponsors", "Investors"].map(
+          <div
+                className={`w-[95%] h-16 bg-[#F40C3F] flex justify-center items-center text-xl
+        transform transition-transform duration-150 ease-out hover:scale-105`}
+              >
+                <Link
+                  onClick={() => setOpen(!open)}
+                  href={`/`}
+                >
+                  Home
+                </Link>
+              </div>
+          {["Events", "About Us", "Speakers", "Sponsors", "Investors"].map(
             (item, index) => (
               <div
                 key={index}

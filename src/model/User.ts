@@ -7,6 +7,7 @@ export interface User extends Document {
   password: string;
   isVerified: boolean;
   image: string;
+  transaction_id: string;
   event: string[]; // Array of event names as strings
 }
 
@@ -32,6 +33,10 @@ const UserSchema: Schema = new Schema({
   isVerified: {
     type: Boolean,
     default: false,
+  },
+  transaction_id: {
+    type: String,
+    required: [true, 'Payment id is required'],
   },
   image: {
     type: String,

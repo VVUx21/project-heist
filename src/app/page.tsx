@@ -9,6 +9,7 @@ import Investors from "../components/Investors/Investors";
 export default function Home() {
   return (
    <>
+   <div className="mainpage">
    <Navbar />
    <Hero />
    <Events/>
@@ -17,6 +18,7 @@ export default function Home() {
    <Sponsors/>
    <Investors/>
    <Footer />
+   </div>
    </>
   );
 }

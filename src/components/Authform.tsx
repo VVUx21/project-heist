@@ -15,10 +15,10 @@ import Inputform from "./inputform";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import axios, { AxiosError } from 'axios';
-import { useToast } from './ui/use-toast';
 import { ApiResponse } from "@/types/Apiresponse";
 import { useRouter } from 'next/navigation';
 import { Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const SignupSchema = z
   .object({
@@ -28,6 +28,7 @@ export const SignupSchema = z
         message: 'Invalid email address',
     }),
     password: z.string().min(8, 'Password must be at least 8 characters long'),
+    transaction_id: z.string().min(5, 'Transaction ID must be at least 5 characters long'),
     confirmPassword: z.string()
     .min(8, 'Confirm password must be at least 8 characters long')
   })
@@ -35,7 +36,6 @@ export const SignupSchema = z
 const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const { toast } = useToast();
   const [fileUrl, setFileUrl] = useState('');
   const [uploading, setIsUploading] = useState(false);
   const form = useForm<z.infer<typeof SignupSchema>>({
@@ -46,6 +46,7 @@ const RegisterForm = () => {
       email:"",
       password:"",
       confirmPassword:"",
+      transaction_id:"",
     },
   })
   const router = useRouter();
@@ -60,10 +61,7 @@ const RegisterForm = () => {
       setIsSubmitting(true);
     try {
       if(data.password != data.confirmPassword){
-        toast({
-          title: 'Password Mismatch',
-          description: 'Passwords do not match',
-        });
+        toast.error('Password and Confirm Password must be same');
         setIsSubmitting(false);
         return;
       }
@@ -73,13 +71,12 @@ const RegisterForm = () => {
         email: data.email,
         password: data.password,
         image: fileUrl,
+        transaction_id: data.transaction_id,
       }
       const response = await axios.post<ApiResponse>('/api/signup',userdata);
-
-      toast({
-        title: 'Success',
-        description: response.data.message,
-      });
+      if(response.data.success){
+        toast.success('Account created successfully');
+      }
       router.replace(`/login`);
       setIsSubmitting(false);
     } catch (error) {
@@ -89,12 +86,7 @@ const RegisterForm = () => {
 
       let errorMessage = axiosError.response?.data.message;
       ('There was a problem with your sign-up. Please try again.');
-
-      toast({
-        title: 'Sign Up Failed',
-        description: errorMessage,
-        variant: 'destructive',
-      });
+      toast.error(errorMessage);
 
       setIsSubmitting(false);
   };
@@ -117,6 +109,7 @@ const RegisterForm = () => {
 
             const data = await response.json();
             setFileUrl(data.secure_url);
+            toast.success("Image uploaded successfully");
         } catch (error) {
             console.log(error)
             alert("Failed to upload image");
@@ -177,6 +170,7 @@ const RegisterForm = () => {
               <Inputform form={form} name="email" label="Email" placeholder="Enter..." />
               <Inputform form={form} name="password" label="Password" placeholder="Enter..." />
               <Inputform form={form} name="confirmPassword" label="Confirm Password" placeholder="Enter..." />
+              <Inputform form={form} name="transaction_id" label="Transaction ID" placeholder="Enter..." />
               <div className="bg-[#5A2323] p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold text-white mb-3">UPI Payment Details</h3>
                 <div className="flex flex-col items-center gap-3">
@@ -220,7 +214,7 @@ const RegisterForm = () => {
                 >
                 {
                   isSubmitting ? (
-                    <Loader2 className="w-6 h-6" />
+                    <Loader2 className="w-6 h-6 animate-spin" />
                   ) : (
                     "Register"
                   )

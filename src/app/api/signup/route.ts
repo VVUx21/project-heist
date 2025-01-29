@@ -15,9 +15,9 @@ export async function POST(request: Request) {
 
   try {
     // Step 2: Parse and Destructure Request Body
-    const { firstname, lastname, email, password,image } = await request.json();
+    const { firstname, lastname, email, password,image,transaction_id } = await request.json();
 
-    if (!email || !password || !firstname || !lastname || !image) {
+    if (!email || !password || !firstname || !lastname || !image || !transaction_id) {
       return Response.json(
         { success: false, message: 'All fields are required.' },
         { status: 400 }
@@ -33,8 +33,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // Step 4: Check for unique transaction_id
+    const existingTransactionId = await UserModel.findOne({ transaction_id });
+    if (existingTransactionId) {
+      return Response.json(
+        { success: false, message: 'Transaction ID already exists.' },
+        { status: 400 }
+      );
+    }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
-     
+
     // Step 5: Handle Unverified Existing User
     const existingUser = await UserModel.findOne({ email });
     if (existingUser && !existingUser.isVerified) {
@@ -49,6 +58,7 @@ export async function POST(request: Request) {
         password: hashedPassword,
         isVerified: true,
         image,
+        transaction_id,
         event: [],
       });
 
