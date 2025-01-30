@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { utils, writeFile } from "xlsx";
+import { Users } from "lucide-react";
 
 export default function AdminPanel() {
     const [users, setUsers] = useState([]);
+    const [count, setCount] = useState(0);
     const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
@@ -16,6 +18,11 @@ export default function AdminPanel() {
         try {
             const response = await axios.get("/api/users");
             setUsers(response.data);
+
+            // Calculate the number of verified users after fetching data
+            const verifiedCount = response.data.filter((user) => user.isVerified).length;
+            setCount(verifiedCount);
+
         } catch (error) {
             console.error("Error fetching users", error);
         }
@@ -48,7 +55,14 @@ export default function AdminPanel() {
                 >
                     Download Excel
                 </button>
-
+                <div>
+                    <p className="text-lg font-semibold mt-2 mb-2">
+                        Total users Registered: {users.length}
+                    </p>
+                    <p className="text-lg font-semibold mt-2 mb-2">
+                        Total verified Registered: {count}
+                    </p>
+                </div>
                 {/* Responsive Table Wrapper */}
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse border border-gray-300">
@@ -109,6 +123,5 @@ export default function AdminPanel() {
                 </div>
             )}
         </div>
-
     );
 }
