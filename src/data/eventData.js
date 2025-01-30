@@ -33,6 +33,6 @@ export const eventsData = [
     "id": 6,
     "title": "ENTREPRENEURIAL WORKSHOP",
     "image": "https://res.cloudinary.com/dirszb3rw/image/upload/v1736975201/o4xlrxq2vm154zz9rtdh.webp",
-     "text": "Ignite innovation and learn essential skills as entrepreneurs collaborate, brainstorm ideas, and develop strategies to build successful ventures."
+     "text": "Ignite innovation and learn essential skills as entrepreneurs collaborate, brainstorm ideas , and develop strategies to build successful ventures."
   }
 ]
