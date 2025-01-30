@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
   try {
     // Step 2: Parse and Destructure Request Body
-    const { firstname, lastname, email, password,image,transaction_id } = await request.json();
+    const { firstname, lastname, email, password, image, transaction_id } = await request.json();
 
     if (!email || !password || !firstname || !lastname || !image || !transaction_id) {
       return Response.json(
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Step 5: Handle Unverified Existing User
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         lastname,
         email,
         password: hashedPassword,
-        isVerified: true,
+        isVerified: false,
         image,
         transaction_id,
         event: [],
