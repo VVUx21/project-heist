@@ -173,7 +173,7 @@ const Footer = () => {
                   +91 9937241286 (Soyanshu Sahoo)
                 </p>
                 <p className="text-gray-400 hover:underline">
-                  +91 74991 56661 (Aditya Chauhan)
+                  +91 7499156661 (Aditya Chauhan)
                 </p>
                 <p className="text-gray-400 hover:underline">
                   +91 8092336833 (Amarpreet Singh)
