@@ -173,7 +173,7 @@ const RegisterForm = () => {
               <Inputform form={form} name="transaction_id" label="Transaction ID" placeholder="Enter..." />
               <div className="bg-[#5A2323] p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold text-white mb-3">UPI Payment Details</h3>
-                <h5 className="text-sm font-semibold text-white mb-3"> 499/- for accodomation and passes combined.(No other amount accepted)</h5>
+                <h5 className="text-sm font-semibold text-white mb-3">Rs 499/- for accodomation and passes combined.(No other amount accepted)</h5>
                 <div className="flex flex-col items-center gap-3">
                   {/* UPI Scanner Image */}
                   <img
